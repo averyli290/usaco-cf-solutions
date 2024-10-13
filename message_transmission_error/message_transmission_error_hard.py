@@ -2,17 +2,14 @@ s = input()
 
 n = len(s)
 
-i = 1
+i = 0
+j = 1
 while i < (n + 1) // 2:
-    s2 = s[i:]
-    j = 0
-    while j < n - i and s2[j] == s[j]:
+    if s[i] == s[j]:
+        i += 1
         j += 1
-    if j == n - i:
-        print("YES")
-        print(s2)
-        break
-    i += 1
+    else:
+
 
 if i == (n + 1) // 2:
     print("NO")
