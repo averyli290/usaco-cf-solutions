@@ -1,7 +1,7 @@
 /*
 Avery Li
-XX/XX/XXXX
-Problem link:
+3/17/2025
+Problem link: https://codeforces.com/contest/2075/problem/C
 */
 
 #include <bits/stdc++.h>
@@ -21,5 +21,6 @@ int main() {
     while (t--) {
         solve();
     }
+    vector<int> v;
     
 }
