@@ -17,13 +17,6 @@ get min required factors to satisfy for each pair which
 doesn't divide properly
 */
 
-int gcd (int a, int b) {
-    return b ? gcd (b, a % b) : a;
-}
-int lcm (int a, int b) {
-    return a / gcd(a, b) * b;
-}
-
 void solve() {
     int n; cin >> n;
     vi b(n);
