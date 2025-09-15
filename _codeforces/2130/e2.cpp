@@ -10,32 +10,6 @@ typedef vector<int> vi;
 typedef vector<ll> vll;
 const long long INF = 1e18;
 
-/*
-
-((((((
-5))))))))))))))))))))))))))))))))4))))))))))))))))3))))))))2))))1))0)
-(5))))))))))))))))))))))))))))))))(4))))))))))))))))(3))))))))(2))))(1))(0)
-(5)))))))))))))))))))))))))))))))))(4)))))))))))))))))(3)))))))))(2)))))(1)))(0))
-actual string used: ...+(+[5]*{32+1}+{32+1}*)+(+[4]*{16+1}+{16+1}*)+(+[3]*{8+1}+{8+1}*)+(+[2]*{4+1}+{4+1}*)+(+[1]*{2+1}+{2+1}*)+(+[0]*{1+1}+{1+1}*)
-
-
-f(string) - 7 produces binary code, 1='(', 0=')'
-if 0 = ), +1
-if 0 = (, +1+1
-if 1 = ), +1
-if 1 = (, +1+2
-if 2 = ), +1
-if 2 = (, +1+4
-if 3 = ), +1
-if 3 = (, +1+8
-if 4 = ), +1
-if 4 = (, +1+16
-if 5 = ), +1
-if 5 = (, +1+32
-if 6 = ), +1
-if 6 = (, +1+64
-*/
- 
 int search(int n, int left, int right) {
     int l = left;
     int r = right;
@@ -69,12 +43,15 @@ string construct(binnum bnum, string forward, string backward) {
     string res = " ";
     int tot = 0;
     for(int i = 5; i >= 0; i--) {
-        res += forward + " ";
+        res += to_string(bnum[i]) + " ";
         tot++;
-        res += repeat((1 << i) + 1, to_string(bnum[i]) + " ");
-        tot += (1 << i) + 1;
-        res += repeat((1 << i) + 1, backward + " ");
-        tot += (1 << i) + 1;
+        res += backward + " ";
+        tot++;
+        res += repeat((1 << i) - 1, forward + " " + backward + " ");
+        tot += ((1 << i) - 1) * 2;
+        if (i == 0) continue;
+        res += backward + " ";
+        tot++;
     }
     return to_string(tot) + res;
 }
@@ -88,6 +65,10 @@ void solve() {
     if (f == n) { b = 1; }
     string forward = to_string(f);
     string backward = to_string(b);
+
+    cout << "? " << construct(binnum{f,f,f,f,f,f}, forward, backward) << "\n";
+    cout.flush();
+    int base; cin >> base;
  
     string ans = "";
     for(int i = 1; i <= n; i += 6) {
@@ -101,19 +82,16 @@ void solve() {
         }
         cout << "? " << construct(temp, forward, backward) << "\n";
         cout.flush();
-        int x; cin >> x; x -= 6;
-        cout << "x: " << x << endl;
-        string temps = "";
+        int x; cin >> x;
+        x = base - x;
         for(int j = 0; j < 6; j++) {
             if (i + j > n) break;
-            if (x & (1 << j)) {
-                temps += "(";
+            if (x & (0b1 << j)) {
+                ans += ")";
             } else {
-                temps += ")";
+                ans += "(";
             }
         }
-        //reverse(all(temps));
-        ans += temps;
     }
     cout << "! " << ans << "\n";
     cout.flush();
@@ -131,3 +109,34 @@ int main() {
     }
     
 }
+
+/*
+
+((((((
+5))))))))))))))))))))))))))))))))4))))))))))))))))3))))))))2))))1))0)
+(5))))))))))))))))))))))))))))))))(4))))))))))))))))(3))))))))(2))))(1))(0)
+(5)))))))))))))))))))))))))))))))))(4)))))))))))))))))(3)))))))))(2)))))(1)))(0))
+actual string used: ...+(+[5]*{32+1}+{32+1}*)+(+[4]*{16+1}+{16+1}*)+(+[3]*{8+1}+{8+1}*)+(+[2]*{4+1}+{4+1}*)+(+[1]*{2+1}+{2+1}*)+(+[0]*{1+1}+{1+1}*)
+
+
+f(string) - 7 produces binary code, 1='(', 0=')'
+if 0 = ), +1
+if 0 = (, +1+1
+if 1 = ), +1
+if 1 = (, +1+2
+if 2 = ), +1
+if 2 = (, +1+4
+if 3 = ), +1
+if 3 = (, +1+8
+if 4 = ), +1
+if 4 = (, +1+16
+if 5 = ), +1
+if 5 = (, +1+32
+if 6 = ), +1
+if 6 = (, +1+64
+nvm just check editorial i couldn't get above solution to work
+
+([2]()()() ) ([1]() ) ([0]
+
+*/
+ 
