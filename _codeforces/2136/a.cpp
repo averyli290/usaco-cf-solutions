@@ -14,12 +14,27 @@ typedef vector<int> vi;
 typedef vector<ll> vll;
 const long long INF = 1e18;
 
-/*
-*/
 
 void solve() {
-    int x; cin >> x;
-
+    int a, b, c, d; cin >> a >> b >> c >> d;
+    if (a < b) {
+        swap(a, b);
+        swap(c, d);
+    }
+    if (a > 2 * (b + 1)) {
+        cout << "NO" << endl;
+        return;
+    }
+    c -= a;
+    d -= b;
+    if (c < d) {
+        swap(c, d);
+    }
+    if (c > 2 * (d + 1)) {
+        cout << "NO" << endl;
+        return;
+    }
+    cout << "YES" << endl;
 }
 
 int main() {

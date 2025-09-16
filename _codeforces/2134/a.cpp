@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2134/problem/A
 */
 
 #include <bits/stdc++.h>
@@ -14,11 +14,18 @@ typedef vector<int> vi;
 typedef vector<ll> vll;
 const long long INF = 1e18;
 
-/*
-*/
 
 void solve() {
-    int x; cin >> x;
+    int n, a, b; cin >> n >> a >> b;
+    if (n % 2 != b % 2) {
+        cout << "NO\n";
+        return;
+    }
+    if (n % 2 != a % 2 && a > b) {
+        cout << "NO\n";
+        return;
+    }
+    cout << "YES\n";
 
 }
 

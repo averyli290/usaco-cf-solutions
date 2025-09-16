@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2140/problem/B
 */
 
 #include <bits/stdc++.h>
@@ -14,12 +14,16 @@ typedef vector<int> vi;
 typedef vector<ll> vll;
 const long long INF = 1e18;
 
+
 /*
+x # 2x = 0 mod 3
+x # 2x = 0 mod x
+=> x # 2x = 0 mod (3x)
 */
 
-void solve() {
-    int x; cin >> x;
 
+void solve() {
+    ll x; cin >> x; cout << 2 * x << endl;
 }
 
 int main() {
@@ -30,5 +34,4 @@ int main() {
     while (t--) {
         solve();
     }
-    
 }

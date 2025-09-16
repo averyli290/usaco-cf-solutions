@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2144/problem/A
 */
 
 #include <bits/stdc++.h>
@@ -14,12 +14,20 @@ typedef vector<int> vi;
 typedef vector<ll> vll;
 const long long INF = 1e18;
 
-/*
-*/
 
 void solve() {
-    int x; cin >> x;
-
+    int n; cin >> n;
+    vi a(n);
+    int sum = 0;
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
+        sum += a[i];
+    }
+    if (sum % 3 != 0) {
+        cout << "0 0" << endl;
+        return;
+    }
+    cout << "1 2" << endl;
 }
 
 int main() {

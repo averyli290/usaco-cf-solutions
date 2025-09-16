@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2144/problem/D
 */
 
 #include <bits/stdc++.h>
@@ -13,13 +13,19 @@ typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 typedef vector<ll> vll;
 const long long INF = 1e18;
+const long long MOD = 998244353;
 
 /*
+9 81, 100000
 */
 
 void solve() {
-    int x; cin >> x;
-
+    ll n, y; cin >> n >> y;
+    vll c(n);
+    for(int i = 0; i < n; i++) {
+        cin >> c[i];
+    }
+    sort(all(c));
 }
 
 int main() {

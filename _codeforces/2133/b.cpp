@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2133/problem/B
 */
 
 #include <bits/stdc++.h>
@@ -14,12 +14,24 @@ typedef vector<int> vi;
 typedef vector<ll> vll;
 const long long INF = 1e18;
 
-/*
-*/
 
 void solve() {
-    int x; cin >> x;
-
+    int n; cin >> n;
+    priority_queue<ll> g;
+    for(int i = 0 ; i < n; i++) {
+        ll x; cin >> x;
+        g.push(x);
+    }
+    ll ans = 0;
+    for(int i = 0 ; i < n - 1; i++) {
+        ll a = g.top();
+        g.pop();
+        ll b = g.top();
+        g.pop();
+        ans += a;
+        g.push(0);
+    }
+    cout << ans << endl;
 }
 
 int main() {

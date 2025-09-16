@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2144/problem/E1
 */
 
 #include <bits/stdc++.h>
@@ -15,10 +15,12 @@ typedef vector<ll> vll;
 const long long INF = 1e18;
 
 /*
+two nxn (nxh where length of array of heights seen from each side)
+sum across top rows dot product
+
 */
 
 void solve() {
-    int x; cin >> x;
 
 }
 

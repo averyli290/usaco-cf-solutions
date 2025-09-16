@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2140/problem/A
 */
 
 #include <bits/stdc++.h>
@@ -14,11 +14,19 @@ typedef vector<int> vi;
 typedef vector<ll> vll;
 const long long INF = 1e18;
 
-/*
-*/
-
 void solve() {
-    int x; cin >> x;
+    int n; cin >> n;
+    string s; cin >> s;
+    int a = 0; int b = 0;
+    for(int i = 0; i < n; i++) {
+        if (s[i] == '0') a++;
+        else b++;
+    }
+    int ans = 0;
+    for(int i = 0; i < a; i++) {
+        if (s[i] != '0') ans++;
+    }
+    cout << ans << endl;
 
 }
 
@@ -30,5 +38,4 @@ int main() {
     while (t--) {
         solve();
     }
-    
 }

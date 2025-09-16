@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2133/problem/A
 */
 
 #include <bits/stdc++.h>
@@ -14,12 +14,21 @@ typedef vector<int> vi;
 typedef vector<ll> vll;
 const long long INF = 1e18;
 
-/*
-*/
 
 void solve() {
-    int x; cin >> x;
-
+    int n; cin >> n;
+    map<int, int> m;
+    for(int i = 0; i < n; i++) {
+        int x; cin >> x;
+        m[x]++;
+    }
+    for (auto [k, v] : m) {
+        if (v > 1) {
+            cout << "YES\n";
+            return;
+        }
+    }
+    cout << "NO\n";
 }
 
 int main() {

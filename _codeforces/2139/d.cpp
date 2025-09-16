@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2139/problem/D
 */
 
 #include <bits/stdc++.h>
@@ -14,11 +14,14 @@ typedef vector<int> vi;
 typedef vector<ll> vll;
 const long long INF = 1e18;
 
+
 /*
+Guess: if there exists indices i, j, k s.t. a_i > a_j > a_k, then not nice
+only works because permutations guarantee distinct values in array
 */
 
+
 void solve() {
-    int x; cin >> x;
 
 }
 
@@ -30,5 +33,4 @@ int main() {
     while (t--) {
         solve();
     }
-    
 }
