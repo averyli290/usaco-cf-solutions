@@ -1,3 +1,5 @@
+# Problem link: https://codeforces.com/contest/2111/problem/B
+
 def solve():
     n, m = list(map(int, input().strip().split()))
     ans = [0] * m

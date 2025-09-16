@@ -1,3 +1,5 @@
+# Problem link: https://codeforces.com/contest/2111/problem/A
+
 def solve():
     x = int(input())
     ans = 0
