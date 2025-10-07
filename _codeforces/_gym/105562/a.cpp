@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/gym/105562/problem/A
 */
 
 #include <bits/stdc++.h>
@@ -19,17 +19,31 @@ const long long INF = 1e18;
 
 
 void solve() {
-
+    int n; cin >> n;
+    vector<pair<string, string>> a(n);
+    string t;
+    getline(cin, t);
+    for(int i = 0; i < n; i++) {
+        string temp;
+        getline(cin, temp);
+        a[i].second = temp;
+        for(int j = 0; j < sz(temp); j++) {
+            if (isupper(temp[j])) {
+                a[i].first = temp.substr(j, sz(temp) - j);
+                break;
+            }
+        }
+    }
+    sort(all(a));
+    for (auto p : a) {
+        cout << p.second << endl;
+    }
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int t = 1;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+    solve();
     
 }

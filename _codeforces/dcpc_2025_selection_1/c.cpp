@@ -17,17 +17,38 @@ typedef vector<ll> vll;
 #define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
 const long long INF = 1e18;
 
+/*
+all base h is taken
+*/
 
 void solve() {
+    int n; cin >> n;
+    vll a(n);
+    ll ans = 0;
+    for(int i = 0; i < n; i++) {
+        int x; cin >> x; ans += x;
+    }
+    int mval = 0;
+    for(int i = 0; i < n; i++) {
+        int x; cin >> x;
+        ans += x;
+        mval = max(mval, x);
+    }
+    ans -= mval;
+    cout << ans << endl;
+    // for(int i = 0 ; i < n; i++) {
+    //     c[i] = pii{b[i], a[i]};
+    // }
+    // for(int i = 0; i < n; i++) {
 
+    // }
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int t = 1;
-    cin >> t;
+    int t; cin >> t;
     while (t--) {
         solve();
     }

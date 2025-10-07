@@ -19,15 +19,37 @@ const long long INF = 1e18;
 
 
 void solve() {
+    int n; cin >> n;
+    map<string, int> m;
+    vector<vector<string>> a(3, vector<string>{});
 
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < n; j++) {
+            string x; cin >> x;
+            a[i].push_back(x);
+            m[x]++;
+        }
+    }
+
+    for(int i = 0; i < 3; i++) {
+        int ans = 0;
+        for(string s : a[i]) {
+            if (m[s] == 1) {
+                ans += 3;
+            } else if (m[s] == 2) {
+                ans++;
+            }
+        }
+        cout << ans << " ";
+    }
+    cout << endl;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int t = 1;
-    cin >> t;
+    int t; cin >> t;
     while (t--) {
         solve();
     }

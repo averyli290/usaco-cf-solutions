@@ -19,7 +19,12 @@ const long long INF = 1e18;
 
 
 void solve() {
-
+    map<string, int>m;
+    m["Ocelot"] = 0;
+    m["Serval"] = 1;
+    m["Lynx"] = 2;
+    string a, b; cin >> a >> b;
+    cout << (m[a] >= m[b] ? "Yes" : "No") << endl;
 }
 
 int main() {
@@ -27,7 +32,7 @@ int main() {
     cin.tie(nullptr);
 
     int t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--) {
         solve();
     }

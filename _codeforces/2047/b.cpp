@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2047/problem/B
 */
 
 #include <bits/stdc++.h>
@@ -19,15 +19,31 @@ const long long INF = 1e18;
 
 
 void solve() {
-
+    int n; cin >> n;
+    string s; cin >> s;
+    map<char, int> m;
+    for(char c : s) {
+        m[c]++;
+    }
+    vector<pair<int, char>> a;
+    for(auto[k,v] : m) {
+        a.push_back({v, k});
+    }
+    sort(all(a));
+    for(char& c : s) {
+        if (c == a[0].second) {
+            c = a[sz(a) - 1].second;
+            break;
+        }
+    }
+    cout << s << endl;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int t = 1;
-    cin >> t;
+    int t; cin >> t;
     while (t--) {
         solve();
     }

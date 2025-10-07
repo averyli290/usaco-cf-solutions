@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/1984/problem/A
 */
 
 #include <bits/stdc++.h>
@@ -19,7 +19,23 @@ const long long INF = 1e18;
 
 
 void solve() {
+    int n; cin >> n;
+    vi a(n);
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
 
+    if (a[0] == a[n - 1]) {
+        cout << "NO" << endl;
+        return;
+    }
+    cout << "YES" << endl;
+    cout << "B";
+    cout << "R";
+    for(int i = 0; i < n - 2; i++) {
+        cout << "B";
+    }
+    cout << endl;
 }
 
 int main() {

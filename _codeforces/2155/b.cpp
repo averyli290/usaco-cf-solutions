@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2155/problem/B
 */
 
 #include <bits/stdc++.h>
@@ -17,9 +17,29 @@ typedef vector<ll> vll;
 #define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
 const long long INF = 1e18;
 
-
 void solve() {
-
+    int n, k; cin >> n >> k;
+    if (k == n * n - 1) {
+        cout << "NO" << endl;
+        return;
+    }
+    cout << "YES" << endl;
+    for(int i = 0; i < n; i++) {
+        int cur = min(n, k);
+        k -= cur;
+        for(int j = 0; j < cur; j++) {
+            cout << "U";
+        }
+        if (cur == n - 1) {
+            cout << "D";
+        } else {
+            for(int j = cur; j < n - 1; j++) {
+                cout << "R";
+            }
+            if (cur < n) cout << "L";
+        }
+        cout << endl;
+    }
 }
 
 int main() {

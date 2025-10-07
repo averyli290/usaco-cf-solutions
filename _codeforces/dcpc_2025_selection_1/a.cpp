@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/group/eH5P3JtXri/contest/637922/problem/A
 */
 
 #include <bits/stdc++.h>
@@ -19,6 +19,24 @@ const long long INF = 1e18;
 
 
 void solve() {
+    int n; cin >> n;
+    int r, b; cin >> r >> b;
+    int ct = r / (b + 1);
+    int rem = r - (ct * (b + 1));
+    string ans = "";
+    for(int i = 0; i <= b; i++) {
+        for(int j = 0; j < ct; j++) {
+            ans += "R";
+        }
+        if (rem > 0) {
+            ans += "R";
+            rem--;
+        }
+        if (i < b) {
+        ans += "B";
+        }
+    }
+    cout << ans << endl;
 
 }
 
@@ -26,8 +44,7 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int t = 1;
-    cin >> t;
+    int t; cin >> t;
     while (t--) {
         solve();
     }

@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/1984/problem/B
 */
 
 #include <bits/stdc++.h>
@@ -19,7 +19,23 @@ const long long INF = 1e18;
 
 
 void solve() {
-
+    ll n; cin >> n;
+    if (n % 10 >= 9) {
+        cout << "NO" << endl;
+        return;
+    }
+    while (n >= 10) {
+        n /= 10;
+        if (n % 10 == 0) {
+            cout << "NO" << endl;
+            return;
+        }
+    }
+    if (n > 1LL) {
+        cout << "NO" << endl;
+    } else {
+        cout << "YES" << endl;
+    }
 }
 
 int main() {

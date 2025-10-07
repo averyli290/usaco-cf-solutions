@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://atcoder.jp/contests/abc426/tasks/abc426_c
 */
 
 #include <bits/stdc++.h>
@@ -19,6 +19,12 @@ const long long INF = 1e18;
 
 
 void solve() {
+    int n, q; cin >> n >> q;
+    for(int i = 0; i < n; i++) {
+        int x, y; cin >> x >> y;
+        // store prefix sums
+        
+    }
 
 }
 

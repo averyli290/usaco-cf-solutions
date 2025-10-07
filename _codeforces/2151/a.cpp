@@ -12,22 +12,33 @@ typedef pair<int, int> pii;
 typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 typedef vector<ll> vll;
-#define debug(x) cout << #x << " is " << x << endl;
-#define debug_array(arr , n)  for(int i=1 ; i<=n ; i++) cout<<#arr<<"["<<i<<"] is "<< arr[i]<<endl;
-#define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
 const long long INF = 1e18;
 
 
 void solve() {
-
+    int n, m; cin >> n >> m;
+    vi a(m);
+    int x = 0;
+    int temp = 0;
+    for(int i = 0; i < m; i++) {
+        cin >> a[i];
+        if (i > 0 && a[i] == 1) {
+            temp += 1;
+        }
+        x = max(x, a[i]);
+    }
+    if (temp == 0) {
+        cout << n - x + 1 << endl;
+    } else if (temp >= 1) {
+        cout << 1 << endl;
+    }
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int t = 1;
-    cin >> t;
+    int t; cin >> t;
     while (t--) {
         solve();
     }

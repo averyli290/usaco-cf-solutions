@@ -17,6 +17,13 @@ typedef vector<ll> vll;
 #define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
 const long long INF = 1e18;
 
+/*
+prioritize dist to next power of 2
+no use in increase a 2
+no use in increase a 6
+same for 2^n - 2
+*/
+
 
 void solve() {
 
@@ -26,8 +33,7 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int t = 1;
-    cin >> t;
+    int t; cin >> t;
     while (t--) {
         solve();
     }

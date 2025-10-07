@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/group/eH5P3JtXri/contest/558888/problem/B
 */
 
 #include <bits/stdc++.h>
@@ -19,7 +19,17 @@ const long long INF = 1e18;
 
 
 void solve() {
-
+    int n; cin >> n;
+    map<string, int> m;
+    for(int i = 0; i < n; i++) {
+        string s; cin >> s;
+        if (m[s] == 0) {
+            cout << "OK" << endl;
+        } else {
+            cout << s << m[s] << endl;
+        }
+        m[s]++;
+    }
 }
 
 int main() {
@@ -27,7 +37,7 @@ int main() {
     cin.tie(nullptr);
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) {
         solve();
     }

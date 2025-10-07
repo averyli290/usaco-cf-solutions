@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/1935/problem/B
 */
 
 #include <bits/stdc++.h>
@@ -19,15 +19,13 @@ const long long INF = 1e18;
 
 
 void solve() {
-
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int t = 1;
-    cin >> t;
+    int t; cin >> t;
     while (t--) {
         solve();
     }

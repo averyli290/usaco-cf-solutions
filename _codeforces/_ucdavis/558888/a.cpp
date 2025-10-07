@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/group/eH5P3JtXri/contest/558888/problem/A
 */
 
 #include <bits/stdc++.h>
@@ -19,7 +19,24 @@ const long long INF = 1e18;
 
 
 void solve() {
-
+    int n; cin >> n;
+    map<string, int> mp;
+    for(int i = 0; i < n; i++) {
+        string s; int x; cin >> s >> x;
+        mp[s] = x;
+    }
+    int m; cin >> m;
+    for(int i = 0; i < m; i++) {
+        string s; cin >> s;
+        mp[s]--;
+    }
+    for(auto& [k, v] : mp) {
+        if (v > 0) {
+            cout << k << endl;
+            return;
+        }
+    }
+    cout << "NO KPOP FOR VADER" << endl;
 }
 
 int main() {
@@ -27,7 +44,7 @@ int main() {
     cin.tie(nullptr);
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) {
         solve();
     }

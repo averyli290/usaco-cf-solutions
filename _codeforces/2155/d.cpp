@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2155/problem/D
 */
 
 #include <bits/stdc++.h>
@@ -17,9 +17,28 @@ typedef vector<ll> vll;
 #define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
 const long long INF = 1e18;
 
+/*
+get one battery which doesn't work: battery 1
+pair up rest, if all fail, test 1st of all pairs with 
+
+k(k + 1) / 2 * (n / k) = n(k + 1) / 2
+*/
+
+int query(int a, int b) {
+    cout << a << " " << b << endl;
+    cout.flush();
+    int x; cin >> x;
+    return x;
+}
 
 void solve() {
-
+    int n; cin >> n;
+    for(int i = 1; i < n; i++) {
+        for(int j = i + 1; j <= n; j++) {
+            int ret = query(i, j);
+            if (ret == 1) return;
+        }
+    }
 }
 
 int main() {

@@ -19,15 +19,20 @@ const long long INF = 1e18;
 
 
 void solve() {
-
+    int n; cin >> n;
+    set<int> s;
+    for(int i = 0; i < n; i++) {
+        int x; cin >> x;
+        s.insert(x);
+    }
+    cout << (sz(s)  - 1) * 2 + 1 << endl;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int t = 1;
-    cin >> t;
+    int t; cin >> t;
     while (t--) {
         solve();
     }

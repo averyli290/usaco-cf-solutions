@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2047/problem/A
 */
 
 #include <bits/stdc++.h>
@@ -19,15 +19,25 @@ const long long INF = 1e18;
 
 
 void solve() {
-
+    int n; cin >> n;
+    int cur = 0;
+    int ans = 0;
+    for(int i = 0; i < n; i++) {
+        int x; cin >> x;
+        cur += x;
+        int temp = (int)sqrt(cur);
+        if (temp * temp == cur && temp % 2 == 1) {
+            ans++;
+        }
+    }
+    cout << ans << endl;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int t = 1;
-    cin >> t;
+    int t; cin >> t;
     while (t--) {
         solve();
     }

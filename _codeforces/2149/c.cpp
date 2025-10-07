@@ -14,18 +14,29 @@ typedef vector<int> vi;
 typedef vector<ll> vll;
 const long long INF = 1e18;
 
-/*
-same numbers will have same overall mex
-*/
 
 void solve() {
-    int n; cin >> n;
+    int n, k; cin >> n >> k;
     vi a(n);
+    map<int, int> m;
+    set<int> b;
     for(int i = 0; i < n; i++) {
         cin >> a[i];
+        m[a[i]]++;
+        b.insert(a[i]);
+    };
+    int ans1 = 0;
+    for(int i = 0; i < k; i++) {
+        if(i < k) {
+            if (m[i] == 0) ans1++;
+        }
     }
-
-
+    int ans2 = m[k];
+    //cout << ans1 << " " << ans2 << endl;
+    int temp = min(ans1, ans2);
+    ans1 -= temp;
+    //ans2 -= temp;
+    cout << ans1 + ans2 << endl;
 }
 
 int main() {

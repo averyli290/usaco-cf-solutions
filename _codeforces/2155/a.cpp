@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2155/problem/A
 */
 
 #include <bits/stdc++.h>
@@ -19,7 +19,8 @@ const long long INF = 1e18;
 
 
 void solve() {
-
+    int n; cin >> n;
+    cout << (n - 1) * 2 << endl;
 }
 
 int main() {
