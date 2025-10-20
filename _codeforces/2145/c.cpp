@@ -51,6 +51,7 @@ void solve() {
     int ans = 1000000;
     map<int, int> idx;
     for(int i = 0; i < n; i++) {
+        // debug(diff[i]);
         if (idx.count(diff[i] - tot)) {
             ans = min(ans, i - idx[diff[i] - tot]);
         }
