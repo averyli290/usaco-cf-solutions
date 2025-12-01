@@ -1,5 +1,5 @@
 /*
-Problem link: https://codeforces.com/contest/2155/problem/D
+Problem link: https://codeforces.com/contest/2005/problem/B1
 */
 
 #include <bits/stdc++.h>
@@ -17,24 +17,23 @@ typedef vector<ll> vll;
 #define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
 const long long INF = 1e18;
 
-int query(int a, int b) { cout << a << " " << b << endl;
-    cout.flush();
-    int x; cin >> x;
-    return x;
-}
 
 void solve() {
-    int n; cin >> n;
-    for(int a = 2; a <= n; a++) {
-        for(int i = 0; i < a; i++) {
-            for(int j = 0; j < (n + a - 1) / a; j++) {
-                for(int k = j + 1; k < n; k++) {
-                    int ret = query(j + 1, k + 1);
-                    if (ret == 1) return;
-                }
-            }
-        }
+    int n, m, q;
+    cin >> n >> m >> q;
+    vi b(m);
+    vi a(q);
+    for (int i = 0; i < m; i++) cin >> b[i];
+    for (int i = 0; i < q; i++) cin >> a[i];
+    sort(all(b));
+    if (a[0] < b[0]) {
+        cout << b[0] - 1 << endl;
+    } else if (a[0] > b[1]) {
+        cout << n - b[1] << endl;
+    } else {
+        cout << (b[1] - b[0]) / 2 << endl;
     }
+
 }
 
 int main() {

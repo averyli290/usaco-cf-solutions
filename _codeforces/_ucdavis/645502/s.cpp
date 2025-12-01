@@ -1,5 +1,5 @@
 /*
-Problem link: https://codeforces.com/contest/2155/problem/D
+Problem link: https://codeforces.com/group/eH5P3JtXri/contest/645502/problem/S
 */
 
 #include <bits/stdc++.h>
@@ -17,24 +17,13 @@ typedef vector<ll> vll;
 #define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
 const long long INF = 1e18;
 
-int query(int a, int b) { cout << a << " " << b << endl;
-    cout.flush();
-    int x; cin >> x;
-    return x;
-}
+/*
+duplicate intervals dont matter
+if there is a pair with a non overlapping section, there is at least one interval which does NOT contain the number,
+that number can be the value of the intervals mex,
+*/
 
 void solve() {
-    int n; cin >> n;
-    for(int a = 2; a <= n; a++) {
-        for(int i = 0; i < a; i++) {
-            for(int j = 0; j < (n + a - 1) / a; j++) {
-                for(int k = j + 1; k < n; k++) {
-                    int ret = query(j + 1, k + 1);
-                    if (ret == 1) return;
-                }
-            }
-        }
-    }
 }
 
 int main() {

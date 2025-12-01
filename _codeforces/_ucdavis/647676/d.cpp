@@ -1,5 +1,5 @@
 /*
-Problem link: https://codeforces.com/contest/2155/problem/D
+Problem link:
 */
 
 #include <bits/stdc++.h>
@@ -15,26 +15,27 @@ typedef vector<ll> vll;
 #define debug(x) cout << #x << " is " << x << endl;
 #define debug_array(arr , n)  for(int i=1 ; i<=n ; i++) cout<<#arr<<"["<<i<<"] is "<< arr[i]<<endl;
 #define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
-const long long INF = 1e18;
+const int INF = 1e9+1;
 
-int query(int a, int b) { cout << a << " " << b << endl;
-    cout.flush();
-    int x; cin >> x;
-    return x;
-}
 
 void solve() {
     int n; cin >> n;
-    for(int a = 2; a <= n; a++) {
-        for(int i = 0; i < a; i++) {
-            for(int j = 0; j < (n + a - 1) / a; j++) {
-                for(int k = j + 1; k < n; k++) {
-                    int ret = query(j + 1, k + 1);
-                    if (ret == 1) return;
-                }
-            }
-        }
+    int minx = INF;
+    int maxx = 0;
+    int miny = INF;
+    int maxy = 0;
+    for(int i = 0; i < n; i++) {
+        int x, y; cin >> x >> y;
+        minx = min(minx, x);
+        maxx = max(maxx, x);
+        miny = min(miny, y);
+        maxy = max(maxy, y);
     }
+    cout << 4 << endl;
+    cout << minx << " " << miny << endl;
+    cout << maxx << " " << miny << endl;
+    cout << maxx << " " << maxy << endl;
+    cout << minx << " " << maxy << endl;
 }
 
 int main() {
@@ -42,7 +43,7 @@ int main() {
     cin.tie(nullptr);
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) {
         solve();
     }

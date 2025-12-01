@@ -1,5 +1,5 @@
 /*
-Problem link: https://codeforces.com/contest/2155/problem/D
+Problem link: https://codeforces.com/group/eH5P3JtXri/contest/645987/problem/B
 */
 
 #include <bits/stdc++.h>
@@ -17,24 +17,36 @@ typedef vector<ll> vll;
 #define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
 const long long INF = 1e18;
 
-int query(int a, int b) { cout << a << " " << b << endl;
-    cout.flush();
-    int x; cin >> x;
-    return x;
-}
 
 void solve() {
     int n; cin >> n;
-    for(int a = 2; a <= n; a++) {
-        for(int i = 0; i < a; i++) {
-            for(int j = 0; j < (n + a - 1) / a; j++) {
-                for(int k = j + 1; k < n; k++) {
-                    int ret = query(j + 1, k + 1);
-                    if (ret == 1) return;
-                }
-            }
+    vector<pii> a(n);
+    for(int i=0; i<n; i++) {
+        int x; cin >> x;
+        a[i] = pii{x, i};
+    }
+    sort(all(a));
+
+    for(int i=0; i<(n + 1)/2; i++) {
+        if (a[i].first + a[n - i - 1].first != a[0].first + a[n - 1].first) {
+            cout << -1 << endl;
+            return;
         }
     }
+
+    vi ans(n);
+    for(int i=0; i<(n + 1)/2; i++) {
+        int x = a[i].second;
+        int y = a[n - i - 1].second;
+        ans[x] = y;
+        ans[y] = x;
+    }
+
+    for(int v : ans) {
+        cout << v + 1 << " ";
+    }
+    cout << endl;
+
 }
 
 int main() {
@@ -42,7 +54,7 @@ int main() {
     cin.tie(nullptr);
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) {
         solve();
     }
