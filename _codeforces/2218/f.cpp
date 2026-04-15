@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2218/problem/E
 */
 
 // #include <bits/stdc++.h>
@@ -43,8 +43,42 @@ typedef vector<ll> vll;
 #define debug(x) cout << #x << " is " << x << endl;
 const long long INF = 1e18;
 
+/*
+there must be at least as many odds as evens
+cannot have no evens and an even amount of odds though
+construct by taking a root, get parity of it and update x and y
+then, attach y nodes to the root, making y odd subtrees
+then, add x nodes to those nodes (1 each) to make x even subtrees
+*/
 
 void solve() {
+    int x, y; cin >> x >> y;
+    if (x > y || (x == 0 && ((y % 2) == 0))) {
+        cout << "NO" << endl;
+        return;
+    }
+
+    int n = x + y;
+    vector<pii> ans;
+    if (n % 2 == 0) {
+        // root node has even
+        x--;
+    } else {
+        // root node has odd
+        y--;
+    }
+    // debug(x);
+    // debug(y);
+    for(int i = 1; i < y + 1; i++) {
+        ans.push_back({1, i + 1});
+    }
+    for(int i = 1; i < x + 1; i++) {
+        ans.push_back({i + 1, i + y + 1});
+    }
+    cout << "YES" << endl;
+    for(auto& [a, b] : ans) {
+        cout << a << " " << b << endl;
+    }
 
 }
 

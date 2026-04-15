@@ -1,5 +1,5 @@
 /*
-Problem link: https://codeforces.com/contest/2171/problem/B
+Problem link:
 */
 
 #include <bits/stdc++.h>
@@ -17,28 +17,20 @@ typedef vector<ll> vll;
 #define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
 const long long INF = 1e18;
 
+/*
+prevent from dying: 
+healths must be greater than both attacks
+*/
 
 void solve() {
-    int n; cin >> n;
+    int n, m; cin >> n >> m;
     vi a(n);
     for(int i = 0; i < n; i++) {
         cin >> a[i];
     }
-    if (a[0] == -1 && a[n - 1] == -1) {
-        a[0] = -1;
-        a[n - 1] = -1;
-    } else if (a[0] == -1) {
-        a[0] = a[n - 1];
-    } else if (a[n - 1] == -1) {
-        a[n - 1] = a[0];
-    }
-    cout << abs(a[0] - a[n-1]) << endl;
-    for(int i = 0; i < n; i++) {
-        if (a[i] == -1) cout << 0;
-        else cout << a[i];
-        cout << " ";
-    }
-    cout << endl;
+    sort(all(a));
+    vi h(all(a));
+    
 }
 
 int main() {

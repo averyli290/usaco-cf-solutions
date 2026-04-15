@@ -1,5 +1,5 @@
 /*
-Problem link: https://codeforces.com/contest/2171/problem/B
+Problem link: https://codeforces.com/contest/2183/problems/B
 */
 
 #include <bits/stdc++.h>
@@ -19,26 +19,32 @@ const long long INF = 1e18;
 
 
 void solve() {
-    int n; cin >> n;
+    int n, k; cin >> n >> k;
+    map<int, int> mp;
     vi a(n);
     for(int i = 0; i < n; i++) {
         cin >> a[i];
     }
-    if (a[0] == -1 && a[n - 1] == -1) {
-        a[0] = -1;
-        a[n - 1] = -1;
-    } else if (a[0] == -1) {
-        a[0] = a[n - 1];
-    } else if (a[n - 1] == -1) {
-        a[n - 1] = a[0];
+    for(int i = 0; i < k; i++) {
+        mp[a[i]]++;
     }
-    cout << abs(a[0] - a[n-1]) << endl;
-    for(int i = 0; i < n; i++) {
-        if (a[i] == -1) cout << 0;
-        else cout << a[i];
-        cout << " ";
+    int curmex = 0;
+    while(mp[curmex] > 0) curmex++;
+    int maxmex = curmex;
+    for(int i = k; i < n; i++) {
+        mp[a[i - k]]--;
+        mp[a[i]]++;
+        curmex = 0;
+        while(mp[curmex] > 0) curmex++;
+        // if (mp[a[i - k]] == 0 && a[i - k] < curmex) curmex = a[i - k];
+        // else if (a[i] == curmex) {
+        //     while(mp[curmex] > 0) curmex++;
+        // }
+        maxmex = max(curmex, maxmex);
     }
-    cout << endl;
+    debug(maxmex);
+    debug(k - 1);
+    cout << min(maxmex, k - 1) << endl;
 }
 
 int main() {

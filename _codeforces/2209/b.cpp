@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2209/problem/B
 */
 
 // #include <bits/stdc++.h>
@@ -45,7 +45,21 @@ const long long INF = 1e18;
 
 
 void solve() {
-
+    int n; cin >> n;
+    vll a(n);
+    for (int i = 0; i < n; i++) cin >> a[i];
+    vi ans(n);
+    for(int i = 0; i < n; i++) {
+        int ct1 = 0;
+        int ct2 = 0;
+        for(int j = i+1; j < n; j++) {
+            if (a[i] > a[j]) ct1++;
+            else if (a[i] < a[j]) ct2++;
+        }
+        ans[i] = max(ct1, ct2);
+    }
+    for(int v : ans) cout << v << " ";
+    cout << endl;
 }
 
 int main() {

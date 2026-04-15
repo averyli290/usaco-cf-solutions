@@ -1,5 +1,5 @@
 /*
-Problem link: https://codeforces.com/contest/2171/problem/B
+Problem link:
 */
 
 #include <bits/stdc++.h>
@@ -20,25 +20,16 @@ const long long INF = 1e18;
 
 void solve() {
     int n; cin >> n;
-    vi a(n);
+    vector<string> a(n);
+    vector<pair<string, int>> b;
     for(int i = 0; i < n; i++) {
         cin >> a[i];
+        b[i] = {a[i], i};
     }
-    if (a[0] == -1 && a[n - 1] == -1) {
-        a[0] = -1;
-        a[n - 1] = -1;
-    } else if (a[0] == -1) {
-        a[0] = a[n - 1];
-    } else if (a[n - 1] == -1) {
-        a[n - 1] = a[0];
-    }
-    cout << abs(a[0] - a[n-1]) << endl;
-    for(int i = 0; i < n; i++) {
-        if (a[i] == -1) cout << 0;
-        else cout << a[i];
-        cout << " ";
-    }
-    cout << endl;
+    sort(all(b));
+    s = b[0].first;
+    
+
 }
 
 int main() {

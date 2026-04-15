@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2216/problem/B
 */
 
 // #include <bits/stdc++.h>
@@ -45,6 +45,24 @@ const long long INF = 1e18;
 
 
 void solve() {
+    ll a, b, c; cin >> a >> b >> c;
+    ll ans = 0;
+    ans += 4 * min(a, c);
+    ll d = min(a, c);
+    c -= d;
+    a -= d;
+    ans += 3 * c;
+
+    ll tht = min(a / 2, b);
+    b -= tht;
+    a -= 2 * tht;
+    ans += 7 * tht;
+    ans += 3 * b;
+    ans += (a / 2) * 5;
+    a %= 2;
+    ans += 3 * a;
+
+    cout << ans << endl;
 
 }
 

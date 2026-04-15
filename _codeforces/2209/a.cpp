@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: ttps://codeforces.com/contest/2209/problem/A
 */
 
 // #include <bits/stdc++.h>
@@ -45,6 +45,17 @@ const long long INF = 1e18;
 
 
 void solve() {
+    ll n, c, k; cin >> n >> c >> k;
+    vll a(n);
+    for (ll &v : a) cin >> v;
+    sort(all(a));
+    for (int i = 0; i < n; i++) {
+        if (c < a[i]) break;
+        ll diff = max(0LL, min(c - a[i], k));
+        c += diff + a[i];
+        k -= diff;
+    }
+    cout << c << endl;
 
 }
 

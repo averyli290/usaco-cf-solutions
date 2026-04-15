@@ -1,5 +1,5 @@
 /*
-Problem link: https://codeforces.com/contest/2171/problem/B
+Problem link: https://codeforces.com/contest/2178/problem/B
 */
 
 #include <bits/stdc++.h>
@@ -17,28 +17,29 @@ typedef vector<ll> vll;
 #define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
 const long long INF = 1e18;
 
+/*
+uusuuu
+sususs
+
+*/
 
 void solve() {
-    int n; cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
+    string r; cin >> r;
+    int n = sz(r);
+    int ans = 0;
+    int prev = 0;
+    if (r[0] == 'u') {
+        ans++;
     }
-    if (a[0] == -1 && a[n - 1] == -1) {
-        a[0] = -1;
-        a[n - 1] = -1;
-    } else if (a[0] == -1) {
-        a[0] = a[n - 1];
-    } else if (a[n - 1] == -1) {
-        a[n - 1] = a[0];
+    for(int i = 0; i < n-1; i++) {
+        if(r[i] == 's') prev = i;
+        else if(i == prev + 2) {
+            prev = i;
+            ans++;
+        }
     }
-    cout << abs(a[0] - a[n-1]) << endl;
-    for(int i = 0; i < n; i++) {
-        if (a[i] == -1) cout << 0;
-        else cout << a[i];
-        cout << " ";
-    }
-    cout << endl;
+    if (r[n - 1] == 'u') ans++;
+    cout << ans << endl;
 }
 
 int main() {

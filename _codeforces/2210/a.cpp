@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2210/problem/A
 */
 
 // #include <bits/stdc++.h>
@@ -45,7 +45,11 @@ const long long INF = 1e18;
 
 
 void solve() {
-
+    int n; cin >> n;
+    for(int i = n; i>= 1;i--) {
+        cout << i << " ";
+    }
+    cout << endl;
 }
 
 int main() {

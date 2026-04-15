@@ -1,5 +1,5 @@
 /*
-Problem link: https://codeforces.com/contest/2171/problem/B
+Problem link:
 */
 
 #include <bits/stdc++.h>
@@ -20,25 +20,37 @@ const long long INF = 1e18;
 
 void solve() {
     int n; cin >> n;
-    vi a(n);
+    vll a(n);
     for(int i = 0; i < n; i++) {
         cin >> a[i];
     }
-    if (a[0] == -1 && a[n - 1] == -1) {
-        a[0] = -1;
-        a[n - 1] = -1;
-    } else if (a[0] == -1) {
-        a[0] = a[n - 1];
-    } else if (a[n - 1] == -1) {
-        a[n - 1] = a[0];
+
+    vll b(n - 1);
+    for(int i = 0; i < n - 1; i++) {
+        b[i] = abs(a[i] - a[i + 1]);
     }
-    cout << abs(a[0] - a[n-1]) << endl;
-    for(int i = 0; i < n; i++) {
-        if (a[i] == -1) cout << 0;
-        else cout << a[i];
-        cout << " ";
+
+    vll pref(n + 3, 0LL);
+    pref[0] = 0LL;
+    for(int i = 0; i < n - 1; i++) {
+        pref[i + 1] = pref[i] + b[i];
     }
-    cout << endl;
+    pref[n] = pref[n - 1];
+    pref[n + 1] = pref[n];
+    // for(int i = 0; i < n + 1; i++) {
+    //     debug(pref[i]);
+    // }
+    // debug(n - 1);
+    ll ans = min(pref[n] - pref[1], pref[n - 2]);
+    // debug(ans);
+    for(int i = 1; i < n - 1; i++) {
+        ll other = abs(a[i - 1] - a[i + 1]);
+        // debug(other);
+        // debug(pref[i - 1]);
+        // debug(pref[i - 1] + pref[n] - pref[i + 1]);
+        ans = min(ans, pref[i - 1] + pref[n] - pref[i + 1] + other);
+    }
+    cout << ans << endl;
 }
 
 int main() {

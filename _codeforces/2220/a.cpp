@@ -45,7 +45,22 @@ const long long INF = 1e18;
 
 
 void solve() {
-
+    int n; cin >> n;
+    vi a(n);
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    sort(all(a));
+    reverse(all(a));
+    for(int i = 0; i < n - 1; i++) {
+        if (a[i] == a[i + 1]) {
+            cout << -1 << endl;
+            return;
+        }
+    }
+    for(int v : a) {
+        cout << v << " ";
+    }
 }
 
 int main() {

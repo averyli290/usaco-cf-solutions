@@ -1,5 +1,5 @@
 /*
-Problem link: https://codeforces.com/contest/2171/problem/B
+Problem link:
 */
 
 #include <bits/stdc++.h>
@@ -20,25 +20,15 @@ const long long INF = 1e18;
 
 void solve() {
     int n; cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
+    if (n == 2) {
+        cout << 2 << endl;
+    } else if (n == 3) {
+        cout << 3 << endl;
+    } else if (n % 2 == 1) {
+        cout << 1 << endl;
+    } else {
+        cout << 0 << endl;
     }
-    if (a[0] == -1 && a[n - 1] == -1) {
-        a[0] = -1;
-        a[n - 1] = -1;
-    } else if (a[0] == -1) {
-        a[0] = a[n - 1];
-    } else if (a[n - 1] == -1) {
-        a[n - 1] = a[0];
-    }
-    cout << abs(a[0] - a[n-1]) << endl;
-    for(int i = 0; i < n; i++) {
-        if (a[i] == -1) cout << 0;
-        else cout << a[i];
-        cout << " ";
-    }
-    cout << endl;
 }
 
 int main() {

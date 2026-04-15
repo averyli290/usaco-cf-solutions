@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2210/problem/C
 */
 
 // #include <bits/stdc++.h>
@@ -43,9 +43,31 @@ typedef vector<ll> vll;
 #define debug(x) cout << #x << " is " << x << endl;
 const long long INF = 1e18;
 
+/*
+take gcd of entire array
+
+if a[i] divides either a[i - 1] or a[i + 1], cannot change
+
+*/
 
 void solve() {
-
+    int n; cin >> n;
+    vi a(n);
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    for(int i = 0; i < n; i++) {
+        int x; cin >> x;
+    }
+    int ans = 0;
+    for(int i = 0; i < n; i++) {
+        int prev = 1;
+        int next = 1;
+        if (i > 0) prev = gcd(a[i - 1], a[i]);
+        if (i < n - 1) next = gcd(a[i + 1], a[i]);
+        if (lcm(prev, next) < a[i]) ans++;
+    }
+    cout << ans << endl;
 }
 
 int main() {

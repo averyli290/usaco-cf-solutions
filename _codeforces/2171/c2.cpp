@@ -1,5 +1,5 @@
 /*
-Problem link: https://codeforces.com/contest/2171/problem/B
+Problem link:
 */
 
 #include <bits/stdc++.h>
@@ -17,28 +17,46 @@ typedef vector<ll> vll;
 #define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
 const long long INF = 1e18;
 
+/*
+2 3 1 4 5
+*/
 
 void solve() {
     int n; cin >> n;
-    vi a(n);
+    vi a(n), b(n);
     for(int i = 0; i < n; i++) {
         cin >> a[i];
     }
-    if (a[0] == -1 && a[n - 1] == -1) {
-        a[0] = -1;
-        a[n - 1] = -1;
-    } else if (a[0] == -1) {
-        a[0] = a[n - 1];
-    } else if (a[n - 1] == -1) {
-        a[n - 1] = a[0];
-    }
-    cout << abs(a[0] - a[n-1]) << endl;
     for(int i = 0; i < n; i++) {
-        if (a[i] == -1) cout << 0;
-        else cout << a[i];
-        cout << " ";
+        cin >> b[i];
     }
-    cout << endl;
+    int msb = 25;
+
+    // flipping msb to your advantage beats all smaller bits
+
+    while (msb >= 0) {
+        int ans = -1;
+        int ctr = 0;
+        for(int i = 0; i < n; i++) {
+            if (((a[i] >> msb) & 0b1) != ((b[i] >> msb) & 0b1)) {
+                ans = i;
+                ctr++;
+            }
+        }
+        // flip odd number of times means someone has to win
+
+        if (ctr % 2 == 1 && ans > -1) {
+            if (ans % 2 == 0) {
+                cout << "Ajisai" << endl;
+                return;
+            } else {
+                cout << "Mai" << endl;
+                return;
+            }
+        }
+        msb--;
+    }
+    cout << "Tie" << endl;
 }
 
 int main() {

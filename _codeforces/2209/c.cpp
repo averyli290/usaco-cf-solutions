@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2209/problem/C
 */
 
 // #include <bits/stdc++.h>
@@ -43,9 +43,31 @@ typedef vector<ll> vll;
 #define debug(x) cout << #x << " is " << x << endl;
 const long long INF = 1e18;
 
+/*
+compare across
+*/
+
+int query(int i, int j) {
+    cout << "? " << i << " " << j << endl;
+    cout.flush();
+    int x; cin >> x;
+    return x;
+}
 
 void solve() {
-
+    int n; cin >> n;
+    for (int i = 2; i <= n; i++) {
+        if (query(i, n + i) == 1) {
+            cout << "! " << i << endl;
+            cout.flush();
+            return;
+        }
+    }
+    // one of (1, n+1) is 0
+    // one of (2, n+2) is 0
+    if (query(1, 2) == 0 && query(1, n + 2) == 0) cout << "! " << n+1 << endl;
+    else cout << "! " << 1 << endl;
+    cout.flush();
 }
 
 int main() {

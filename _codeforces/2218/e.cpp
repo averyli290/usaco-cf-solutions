@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2218/problem/E
 */
 
 // #include <bits/stdc++.h>
@@ -43,9 +43,25 @@ typedef vector<ll> vll;
 #define debug(x) cout << #x << " is " << x << endl;
 const long long INF = 1e18;
 
+/*
+a1 ^ an, a2 ^ an, ..., an-1 ^ an
+(a1 ^ an) ^ (a2 ^ an), ...
+= (a1 ^ a2), ...
+(a1 ^ a2) ^ (a1 ^ a3) ...
+= (a2 ^ a3) ...
+*/
 
 void solve() {
-
+    int n; cin >> n;
+    vi a(n);
+    for (int i = 0; i < n; i++) cin >> a[i];
+    int ans = 0;
+    for(int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            ans = max(ans, a[i] ^ a[j]);
+        }
+    }
+    cout << ans << endl;
 }
 
 int main() {

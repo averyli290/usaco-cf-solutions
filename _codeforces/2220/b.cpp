@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2220/problem/B
 */
 
 // #include <bits/stdc++.h>
@@ -43,8 +43,47 @@ typedef vector<ll> vll;
 #define debug(x) cout << #x << " is " << x << endl;
 const long long INF = 1e18;
 
+/*
+2 4
+1 3
+1 0
+
+2 2 4
+0 1 1
+1 0 2
+0 1 3
+1 0 0
+0 1 1
+
+
+2
+
+0 1 1 1 0 1
+*/
+
 
 void solve() {
+    int n, m; cin >> n >> m;
+    vi a(n);
+    // vector<pll> runs
+    for(int i = 0; i < n; i++) cin >> a[i];
+
+    // int consec_max = 1;
+    int cur = 1;
+
+    int threshold = m;
+    for(int i = 1; i < n; i++) {
+        if (a[i] == a[i - 1]) cur++;
+        else {
+            cur = 0;
+            threshold = (a[i - 1] - a[i] + m) % m;
+        }
+        if (cur > threshold) {
+            cout << "NO" << endl;
+            return;
+        }
+    }
+    cout << "YES" << endl;
 
 }
 
