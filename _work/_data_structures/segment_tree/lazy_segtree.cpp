@@ -11,19 +11,19 @@ template <typename T> class LazySegtree {
     /** builds the segtree nodes */
     void build(int v, int l, int r, const vector<T> &a) {
         if (l == r) {
-            tree[v] = a[l];
+            tree[v] = a[l];         // CHECK
         } else {
             int m = (l + r) / 2;
             build(2 * v, l, m, a);
             build(2 * v + 1, m + 1, r, a);
-            tree[v] = tree[2 * v] + tree[2 * v + 1];
+            tree[v] = tree[2 * v] + tree[2 * v + 1];        // CHECK
         }
     }
     
     /** applies lazy update to tree[v], places update at lazy[v] */
     void apply(int v, int len, T upd) {
-        tree[v] += upd * len;
-        lazy[v] += upd;
+        tree[v] += upd * len;       // CHECK
+        lazy[v] += upd;             // CHECK
     }
 
     /** pushes down lazy updates to children of v */
@@ -31,7 +31,7 @@ template <typename T> class LazySegtree {
         int m = (l + r) / 2;
         apply(2 * v, m - l + 1, lazy[v]);
         apply(2 * v + 1, r - m, lazy[v]);
-        lazy[v] = 0;
+        lazy[v] = 0;                        // CHECK
     }
 
     void range_update(int v, int l, int r, int ql, int qr, int upd) {
@@ -43,15 +43,17 @@ template <typename T> class LazySegtree {
             int m = (l + r) / 2;
             range_update(2 * v, l, m, ql, qr, upd);
             range_update(2 * v + 1, m + 1, r, ql, qr, upd);
-            tree[v] = tree[2 * v] + tree[2 * v + 1];
+            tree[v] = tree[2 * v] + tree[2 * v + 1];            // CHECK
         }
     }
 
     T range_query(int v, int l, int r, int ql, int qr) {
-        if (qr < l || ql > r) { return 0; }
-        if (ql <= l && r <= qr) { return tree[v]; }
+        if (qr < l || ql > r) { return 0; }             // CHECK
+        if (ql <= l && r <= qr) { return tree[v]; }     // CHECK
         push_down(v, l, r);
         int m = (l + r) / 2;
+
+        // CHECK
         return range_query(2 * v, l, m, ql, qr) + range_query(2 * v + 1, m + 1, r, ql, qr);
     }
 
@@ -68,30 +70,3 @@ template <typename T> class LazySegtree {
     /** @return sum of values on [ql, qr] */
     T range_query(int ql, int qr) { return range_query(1, 0, siz - 1, ql, qr); }
 };
-
-// int main() {
-//     int test_num;
-//     cin >> test_num;
-//     for (int t = 0; t < test_num; t++) {
-//         int n, q;
-//         cin >> n >> q;
-// 
-//         LazySegtree<ll> st(n);
-//         for (int i = 0; i < q; i++) {
-//             int type;
-//             cin >> type;
-// 
-//             if (type == 0) {
-//                 int p, q, val;
-//                 cin >> p >> q >> val;
-//                 p--, q--;
-//                 st.range_update(p, q, val);
-//             } else {
-//                 int p, q;
-//                 cin >> p >> q;
-//                 p--, q--;
-//                 cout << st.range_query(p, q) << '\n';
-//             }
-//         }
-//     }
-// }
