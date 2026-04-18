@@ -1,3 +1,7 @@
+/*
+Problem link:
+*/
+
 // #include <bits/stdc++.h>
 #include <iostream>
 #include <fstream>
@@ -39,21 +43,37 @@ typedef vector<ll> vll;
 #define debug(x) cout << #x << " is " << x << endl;
 const long long INF = 1e18;
 
+/*
+x x x x x
+x x x x x
+x x x x x
+x x x x x
+x x x x x
+
+*/
+ll inv(ll a, ll mod) {
+  return a <= 1 ? a : mod - (long long)(mod/a) * inv(mod % a, mod) % mod;
+}
 
 void solve() {
-    int n, m; cin >> n >> m;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    int consec_max = 1;
-    int cur = 1;
-    for(int i = 1; i < n; i++) {
-        if (a[i] == a[i - 1]) cur++;
-        else cur = 1;
-        consec_max = max(consec_max, cur);
+    ll n, m, a, b; cin >> n >> m >> a >> b;
+    if (a == 1 && b == 1) {
+        cout << "YES" << endl;
+        return;
     }
-    if (consec_max >= m) cout << "NO" << endl;
-    else cout << "YES" << endl;
+    if (gcd(a, n) > 1 && gcd(b, m) > 1) {
+        cout << "NO" << endl;
+        return;
+    }
 
+    ll c = inv(a, n);
+    ll d = inv(b, m);
+    ll l = lcm(c, d);
+    ll g = gcd(c, d);
+    
+    if ()
+
+    cout << "YES" << endl;
 }
 
 int main() {

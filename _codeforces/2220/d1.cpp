@@ -39,21 +39,36 @@ typedef vector<ll> vll;
 #define debug(x) cout << #x << " is " << x << endl;
 const long long INF = 1e18;
 
+/*
+if 3 of x, then there exists an index where separating on there
+will put 2 x's in one part and 1 x in the other: ~10 queries
+find index for 1 x using binary search 
+separate the other 2 x's using the same process
+
+if query length even, 2 x's in query, retval is even
+if query length even, 1 x in query, retval is odd
+if query length odd,  2 x's in query, retval is odd
+if query length odd,  1 x in query, retval is even
+
+given that [l, r] contains 2 x's if query(l, r) == query(l, r + 1), then a[r + 1] = x
+assume that the left half contains 2 x's
+binary search [0, r] for when the query value doesn't change between adjacent
+
+
+given that [l, r] contains 2 x's if query(l, r) == query(l-1, r + 1), then a[l-1] = x
+given that [l, r] contains 3 x's if query(l, r) == query(l-1, r), then a[l-1] = x
+*/
+
+vi query(int k, vi s) {
+    cout << "? " << k;
+    for (int v : s) cout << " " v;
+    cout << endl;
+    cout.flush();
+
+}
 
 void solve() {
-    int n, m; cin >> n >> m;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    int consec_max = 1;
-    int cur = 1;
-    for(int i = 1; i < n; i++) {
-        if (a[i] == a[i - 1]) cur++;
-        else cur = 1;
-        consec_max = max(consec_max, cur);
-    }
-    if (consec_max >= m) cout << "NO" << endl;
-    else cout << "YES" << endl;
-
+    int n; cin >> n;
 }
 
 int main() {

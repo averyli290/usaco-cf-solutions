@@ -1,3 +1,7 @@
+/*
+Problem link: https://codeforces.com/contest/2207/problem/C
+*/
+
 // #include <bits/stdc++.h>
 #include <iostream>
 #include <fstream>
@@ -41,19 +45,47 @@ const long long INF = 1e18;
 
 
 void solve() {
-    int n, m; cin >> n >> m;
-    vi a(n);
+    ll n, h; cin >> n >> h;
+    vll a(n);
     for(int i = 0; i < n; i++) cin >> a[i];
-    int consec_max = 1;
-    int cur = 1;
-    for(int i = 1; i < n; i++) {
-        if (a[i] == a[i - 1]) cur++;
-        else cur = 1;
-        consec_max = max(consec_max, cur);
-    }
-    if (consec_max >= m) cout << "NO" << endl;
-    else cout << "YES" << endl;
 
+    if (n == 1) {
+        cout << h - a[0] << endl;
+        return;
+    }
+    
+    vll b(n);
+    for(int i = 0; i < n; i++) {
+        ll cur = h - a[i];
+        ll curmax = a[i];
+        for (int j = i - 1; j >= 0; j--) {
+            curmax = max(curmax, a[j]);
+            cur += h - curmax;
+        }
+        curmax = a[i];
+        for (int j = i + 1; j < n; j++) {
+            curmax = max(curmax, a[j]);
+            cur += h - curmax;
+        }
+        b[i] = cur;
+    }
+    // for (ll &v : b) {
+    //     cout << v << endl;
+    // }
+
+    ll ans = 0LL;
+    for(int i = 0; i < n; i++) {
+        ll curmax = a[i];
+        int curmaxidx = i;
+        for(int j = i + 1; j < n; j++) {
+            if (curmax < a[j]) {
+                curmax = a[j];
+                curmaxidx = j;
+            }
+            ans = max(ans, b[i] + b[j] - b[curmaxidx]);
+        }
+    }
+    cout << ans << endl;
 }
 
 int main() {
