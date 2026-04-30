@@ -1,3 +1,7 @@
+/*
+Problem link:
+*/
+
 // #include <bits/stdc++.h>
 #include <iostream>
 #include <fstream>
@@ -41,19 +45,21 @@ const long long INF = 1e18;
 
 
 void solve() {
-    int n, m; cin >> n >> m;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    int consec_max = 1;
-    int cur = 1;
-    for(int i = 1; i < n; i++) {
-        if (a[i] == a[i - 1]) cur++;
-        else cur = 1;
-        consec_max = max(consec_max, cur);
+    int n, k; cin >> n >> k;
+    int tot = 0;
+    for(int i = 0; i < n; i++) {
+        int x; cin >> x;
+        tot += x;
     }
-    if (consec_max >= m) cout << "NO" << endl;
-    else cout << "YES" << endl;
-
+    if (tot % 2 == 1) {
+        cout << "YES" << endl;
+        return;
+    }
+    if (n * k % 2 == 0) {
+        cout << "YES" << endl;
+        return;
+    }
+    cout << "NO" << endl;
 }
 
 int main() {

@@ -1,3 +1,7 @@
+/*
+Problem link: https://codeforces.com/contest/2200/problem/E
+*/
+
 // #include <bits/stdc++.h>
 #include <iostream>
 #include <fstream>
@@ -39,20 +43,44 @@ typedef vector<ll> vll;
 #define debug(x) cout << #x << " is " << x << endl;
 const long long INF = 1e18;
 
-
 void solve() {
-    int n, m; cin >> n >> m;
+    int n; cin >> n;
     vi a(n);
     for(int i = 0; i < n; i++) cin >> a[i];
-    int consec_max = 1;
-    int cur = 1;
-    for(int i = 1; i < n; i++) {
-        if (a[i] == a[i - 1]) cur++;
-        else cur = 1;
-        consec_max = max(consec_max, cur);
+    vi b(all(a));
+    sort(all(b));
+    bool good = true;
+    for(int i = 0; i < n; i++) {
+        if (a[i] != b[i]) good = false;
     }
-    if (consec_max >= m) cout << "NO" << endl;
-    else cout << "YES" << endl;
+    if (good) {
+        cout << "Bob" << endl;
+        return;
+    }
+    int m = 0;
+    for(int i = 0; i < n; i++) {
+        int f = 1;
+        for(int j = 2; j <= a[i]; j++) {
+            bool g = false;
+            while (a[i] % j == 0) {
+                g = true;
+                a[i] /= j;
+            }
+            if (f == 1 && g) f = j;
+            else if (f != j && g) {
+            //     debug(f);
+            //     debug(j);
+                cout << "Alice" << endl;
+                return;
+            }
+        }
+        if (m > f) {
+            cout << "Alice" << endl;
+            return;
+        }
+        m = f;
+    }
+    cout << "Bob" << endl;
 
 }
 
