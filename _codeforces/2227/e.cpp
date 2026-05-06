@@ -1,7 +1,3 @@
-/*
-Problem link:
-*/
-
 // #include <bits/stdc++.h>
 #include <iostream>
 #include <fstream>
@@ -44,8 +40,40 @@ typedef vector<ll> vll;
 const long long INF = 1e18;
 
 
-void solve() {
+/*
+lowest 
+*/
 
+void solve() {
+    int n; cin >> n;
+    vll a(n);
+
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    vll b(n);
+    ll cur = a[n - 1];
+    ll ans = 0LL;
+    for(int i = n - 1; i >= 0; i--) {
+        cur = min(a[i], cur);
+        b[i] = cur;
+        ans += a[i] - cur;
+    }
+
+    int i = n - 1;
+    ll streak = 1LL;
+    ll add = 0LL;
+    while (i > 0) {
+        if (b[i] > b[i - 1]) {
+            add = max(add, streak - 1);
+            streak = 1;
+        }
+        else streak++;
+        i--;
+    }
+    add = max(add, streak - 1LL);
+    streak = 1;
+    cout << add + ans << endl;
 }
 
 int main() {

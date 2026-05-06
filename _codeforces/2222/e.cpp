@@ -43,14 +43,14 @@ typedef vector<ll> vll;
 #define debug(x) cout << #x << " is " << x << endl;
 const long long INF = 1e18;
 
-int q1(int x) {
+int q1(ll x) {
     cout << "I " << x << endl;
     cout.flush();
     int res; cin >> res;
     return res;
 }
 
-int q2(int x) {
+int q2(ll x) {
     cout << "Q " << x << endl;
     cout.flush();
     int res; cin >> res;
@@ -59,12 +59,15 @@ int q2(int x) {
 
 void solve() {
     ll n; cin >> n;
+    cout << 0 << endl;
+    cout.flush();
     
     ll k, c, res;
     ll a = (1 << n) - 1;
-    int prev;
+    ll prev;
     // figure out k
     res = q1(0);
+    prev = res;
     if (res == 1) {
         // &, S = {0}
         k = 1;
@@ -72,16 +75,13 @@ void solve() {
         // ^, S = {0, c}
         // |, S = {0, c}
         res = q1(a);
+
         // ^, S = {0, c, \overline{c}}
         // |, S = {0, c, a}
 
-        // check if c == a
-        res = q2(0);
-        if (res == 2) 
-
-
         // if c != a
         res = q2(a);
+        prev = res;
         if (res == 0) {
             k = 2;
         } else {
@@ -89,26 +89,7 @@ void solve() {
         }
     }
 
-
-    if (res == 1) {
-        k = 2;
-        prev = 1;
-    } else {
-        res = q1(0);
-        if (res == 2) {
-            prev = 2;
-            k = 3;
-            cout << "A " << k << " " << a << endl;
-            cout.flush();
-            return;
-        } else {
-            res = q2(1);
-            if (res == 2) k = 1;
-            else k = 3;
-            prev = 3;
-        }
-    }
-    ll c = 0LL;
+    c = 0LL;
     if (k == 3) {
         // flip one bit at a time
         for (int i = 0; i < n; i++) {
@@ -130,8 +111,18 @@ void solve() {
             prev = res;
         }
     } else {
-        // how to handle and ?
+        // and a single bit
+        for (int i = 0; i < n; i++) {
+            ll x = (1 << i);
+            res = q1(x);
+            if (res > prev) {
+                c += x;
+            }
+            prev = res;
+        }
     }
+    cout << "A " << k << " " << c << endl;
+    cout.flush();
 }
 
 int main() {
