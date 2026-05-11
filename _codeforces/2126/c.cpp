@@ -1,5 +1,5 @@
 /*
-Problem link: 
+Problem link:
 */
 
 // #include <bits/stdc++.h>
@@ -44,50 +44,38 @@ typedef vector<ll> vll;
 const long long INF = 1e18;
 
 
-vector<vi> adj;
-
 void solve() {
-	int n; cin >> n;
-	adj.assign(n + 1, vi{});
-	for(int i = 0; i < n - 1; i++) {
-		int x, y; cin >> x >> y;
-		adj[x].push_back(y);
-		adj[y].push_back(x);
-	}
+    int n, k; cin >> n >> k;
+    vi h(n); 
+    for(int i = 0; i < n; i++) cin >> h[i];
+    int cur = h[k - 1];
+    sort(all(h));
 
-	vector<pii> a(n);
-	for(int i = 1; i <= n; i++) {
-		a[i] = pii{i, sz(adj[i])};
-	}
-	sort(all(a), [](pii x, pii y) { return x.second > y.second;});
-	int ansi = a[0].first;
-	int degi = a[0].second;
-	set<int> del;
-	for(int neig : adj[ansi]) {
-		del.insert(neig);
-		adj[neig].erase(ansi);
-	}
-	adj[ansi].clear();
-	a.clear();
-	for(int i = 1; i <= n; i++) {
-		a[i] = {i, sz(adj[i])};
-	}
-	sort(all(a), [](pii x, pii y) { return x.second > y.second;});
-	int ans = degi + a[0].second;
-	if (del.find(a[0].first) != del.end()) {
-		ans -= 2;
-	} else {
-		ans -= 1;
-	}
-	cout << ans << endl;
+    int i = 0;
+    while(i < n && h[i] <= cur) i++;
+
+    int curh = 1;
+    for(;i < n; i++) {
+        int diff = h[i] - h[i - 1];
+        if (curh + diff - 1 > h[i - 1] || cur + diff > h[i]) {
+            cout << "NO" << endl;
+            return;
+        }
+        curh += diff;
+    }
+    cout << "YES" << endl;
 
 
 }
 
 int main() {
-	ios::sync_with_stdio(false);
-	cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-	int t; cin >> t;
-	while (t--) solve();
+    int t = 1;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+    
 }
