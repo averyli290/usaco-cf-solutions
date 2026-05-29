@@ -17,6 +17,12 @@ typedef vector<ll> vll;
 #define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
 const long long INF = 1e18;
 
+/*
+if mex(a) is larger than k-1, will just remove the largest elt at the last iteration
+if mex(a) is less than k-1, then in each window we choose to remove an element that will
+not be in the final window producing mex(a), then mex(a) is possible
+*/
+
 
 void solve() {
     int n, k; cin >> n >> k;
@@ -25,26 +31,12 @@ void solve() {
     for(int i = 0; i < n; i++) {
         cin >> a[i];
     }
-    for(int i = 0; i < k; i++) {
+    for(int i = 0; i < n; i++) {
         mp[a[i]]++;
     }
-    int curmex = 0;
-    while(mp[curmex] > 0) curmex++;
-    int maxmex = curmex;
-    for(int i = k; i < n; i++) {
-        mp[a[i - k]]--;
-        mp[a[i]]++;
-        curmex = 0;
-        while(mp[curmex] > 0) curmex++;
-        // if (mp[a[i - k]] == 0 && a[i - k] < curmex) curmex = a[i - k];
-        // else if (a[i] == curmex) {
-        //     while(mp[curmex] > 0) curmex++;
-        // }
-        maxmex = max(curmex, maxmex);
-    }
-    debug(maxmex);
-    debug(k - 1);
-    cout << min(maxmex, k - 1) << endl;
+    int mex = 0;
+    while(mp[mex] > 0) mex++;
+    cout << min(mex, k - 1) << endl;
 }
 
 int main() {

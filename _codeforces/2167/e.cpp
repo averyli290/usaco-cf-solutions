@@ -20,29 +20,31 @@ const long long INF = 1e18;
 
 void solve() {
     int n,k,x; cin >> n >> k >> x;
-    vll a(n);
+    vi a(n);
     for(int i=0;i<n;i++) cin >> a[i];
     sort(all(a));
-    vector<pll> diffs(n - 1);
-    for(int i=0;i<n-1;i++) {
-        diffs.emplace_back((a[i + 1] - a[i]) / 2, i);
-    }
-    diffs.emplace_back(a[0], n);
-    diffs.emplace_back(x-a[n-1], n+1);
-    sort(all(diffs));
-    vll pref(sz(diffs) + 1, 0LL);
-    for (int i = 0; i < sz(diffs); i++) {
-        pref[i + 1] = pref[i];
-        if (i < n) pref[i + 1] += a[i + 1] - a[i];
-        else if (i == n) pref[i + 1] += a[0];
-        else if (i == n + 1) pref[i + 1] += x-a[n-1];
-    }
 
-    for (int i = 0; i < sz(pref); i++) {
-        if (pref[i] < )
+    function<pair<bool, vector<int>>(int)> check = [&] (int dist) {
+        return pair<bool, vector<int>>{false, vi{}};
+    };
+
+    int lo = 0;
+    int hi = x;
+    vi ret;
+    while(lo < hi) {
+        int mid = (lo + hi + 1) / 2;
+        auto [good, ans] = check(mid);
+        if(good) {
+            ret = ans;
+            lo = mid;
+        } else {
+            hi = mid - 1;
+        }
     }
-
-
+    for(int v : ret) {
+        cout << v << " ";
+    }
+    cout << endl;
 
 }
 
