@@ -44,50 +44,19 @@ typedef vector<ll> vll;
 const long long INF = 1e18;
 
 
-vector<vi> adj;
-
 void solve() {
-	int n; cin >> n;
-	adj.assign(n + 1, vi{});
-	for(int i = 0; i < n - 1; i++) {
-		int x, y; cin >> x >> y;
-		adj[x].push_back(y);
-		adj[y].push_back(x);
-	}
-
-	vector<pii> a(n);
-	for(int i = 1; i <= n; i++) {
-		a[i] = pii{i, sz(adj[i])};
-	}
-	sort(all(a), [](pii x, pii y) { return x.second > y.second;});
-	int ansi = a[0].first;
-	int degi = a[0].second;
-	set<int> del;
-	for(int neig : adj[ansi]) {
-		del.insert(neig);
-		adj[neig].erase(ansi);
-	}
-	adj[ansi].clear();
-	a.clear();
-	for(int i = 1; i <= n; i++) {
-		a[i] = {i, sz(adj[i])};
-	}
-	sort(all(a), [](pii x, pii y) { return x.second > y.second;});
-	int ans = degi + a[0].second;
-	if (del.find(a[0].first) != del.end()) {
-		ans -= 2;
-	} else {
-		ans -= 1;
-	}
-	cout << ans << endl;
-
-
+    int n, w; cin >> n >> w;
+    cout << n - (n / w) <<endl;
 }
 
 int main() {
-	ios::sync_with_stdio(false);
-	cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-	int t; cin >> t;
-	while (t--) solve();
+    int t = 1;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+    
 }
