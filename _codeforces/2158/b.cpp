@@ -17,56 +17,46 @@ typedef vector<ll> vll;
 #define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
 const long long INF = 1e18;
 
+/*
+odd freq always increases by 1
+even, want to split odd odd
+*/
 
 void solve() {
-    int n;
-    cin >> n;
-    vi a(2*n);
+    int n; cin >> n;
     map<int, int> mp;
-    set<int> odds;
     for(int i = 0; i < 2*n; i++) {
-        cin >> a[i];
-        mp[a[i]]++;
+        int x; cin >> x;
+        mp[x]++;
     }
-    vector<pii> odd;
-    vector<pii> even;
-    for(auto [k, v] : mp) {
-        if (v % 2 == 1) odd.push_back({v, k});
-        else even.push_back({v, k});
-    }
-    sort(all(odd));
-    sort(all(even));
-    reverse(all(even));
-    int ct = n;
     int ans = 0;
-    for(auto& [v, k] : even) {
-        if (ct == 0) break;
-        int to_add;
-        if (ct % 2 == 0) {
-            to_add = min(ct - 1, v - 1);
+    vector<pii> b;
+    for(auto& [k, v] : mp) {
+        if (v % 2 == 1) ans++;
+        else {
+            b.push_back({v, k});
+        }
+    }
+    sort(all(b));
+    int ct1 = 0;
+    int ct2 = 0;
+    for(int i = 0; i < sz(b); i++) {
+        if (ct1 > ct2) swap(ct1, ct2);
+        if ((b[i].first / 2) % 2 == 0) {
+            ct2 += b[i].first / 2 - 1;
+            ct1 += b[i].first / 2 + 1;
         } else {
-            to_add = min(ct, v - 1);
+            ct1 += b[i].first / 2;
+            ct2 += b[i].first / 2;
         }
-        if(to_add > 0 % to_add % 2 == 1) {
-            ans+=2;
+        // debug(ct1);
+        // debug(ct2);
+        if (ct1 > n || ct2 > n) {
+            break;
         }
-        v -= to_add;
-        ct -= to_add;
+        ans += 2;
     }
-    for(auto& [v, k] : odd) {
-        if(ct == 0) break;
-        ct -= min(ct, v);
-    }
-    sort(all(even));
-    reverse(all(even));
-    for(auto& [v, k] : even) {
-        if (ct == 0) break;
-        int to_add = min(ct, v);
-        ct -= to_add;
-        ans -= 2;
-    }
-
-    cout << ans + sz(odd) << endl;
+    cout << ans << endl;
 }
 
 int main() {

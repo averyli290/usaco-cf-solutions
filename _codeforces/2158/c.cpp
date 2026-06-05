@@ -17,6 +17,10 @@ typedef vector<ll> vll;
 #define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
 const long long INF = 1e18;
 
+/*
+even normal
+odd check if used current to maximize the score
+*/
 
 void solve() {
     int n, k; cin >> n >> k;
@@ -27,36 +31,30 @@ void solve() {
     for(int i = 0; i < n; i++) {
         cin >> b[i];
     }
-    if(k % 2 == 0) {
-        ll ans = a[0];
-        ll cur = a[0];
-        for(int i = 1; i < n; i++) {
-            cur = max(a[i], cur + a[i]);
-            ans = max(ans, cur);
+
+    if (k % 2 == 0) {
+        ll cur = 0ll;
+        ll mval = a[0];
+        for(int i = 0; i < n; i++) {
+            mval = max(mval, max(a[i], cur + a[i]));
+            cur = max(0ll, cur + a[i]);
         }
-        cout << ans << endl;
+        cout << mval << endl;
     } else {
-        ll ans = a[0] + abs(b[0]);
-        ll cur = a[0];
-        ll best_change = abs(b[0]);
-        for(int i = 1; i < n; i++) {
-            if (a[i] + abs(b[i]) > cur + a[i] + max(abs(b[i]), best_change)) {
-                best_change = abs(b[i]);
-                cur = a[i];
-            } else if (a[i] + abs(b[i]) == cur + a[i] + max(abs(b[i]), best_change)) {
-                if (abs(b[i]) > best_change) {
-                    best_change = abs(b[i]);
-                    cur = a[i];
-                } else {
-                    cur += a[i];
-                }
-            } else {
-                best_change = max(abs(b[i]), best_change);
-                cur += a[i];
-            }
-            ans = max(ans, cur + best_change);
+        ll cur = 0ll;
+        ll curused = 0ll;
+        ll mval = max(a[0] - b[0], a[0] + b[0]);
+        for(int i = 0; i < n; i++) {
+            // mval = max(mval, max(max(a[i] + b[i], cur + a[i] + b[i]), max(a[i] - b[i], cur + a[i] - b[i])));
+            mval = max(mval, max(max(max(a[i] + b[i], cur + a[i] + b[i]), max(a[i] - b[i], cur + a[i] - b[i])), curused + a[i]));
+            ll prevcur = cur;
+            cur = max(0ll, cur + a[i]);
+            // curused = max(0ll, cur + a[i]);
+            // cur = max(0ll, cur + a[i]);
+            curused = max(0ll, max(curused + a[i], max(prevcur + a[i] + b[i], prevcur + a[i] - b[i])));
+            // debug(curused);
         }
-        cout << ans << endl;
+        cout << mval << endl;
     }
 
 }
