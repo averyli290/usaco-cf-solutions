@@ -1,5 +1,5 @@
 /*
-Problem link: https://codeforces.com/contest/2131/problem/B
+Problem link: https://codeforces.com/contest/2132/problem/B
 */
 
 #include <bits/stdc++.h>
@@ -17,22 +17,33 @@ const long long INF = 1e18;
 
 void solve() {
     int n; cin >> n;
-    if (n == 2) {
-        cout << "-1 2" << endl;
-        return;
+
+    int t = n;
+    int ct = 0;
+    vi v;
+    while(t > 0) {
+        ct++;
+        v.push_back(t % 10);
+        t /= 10;
     }
-    for (int i = 0; i < n; i++) {
-        if (i == n - 1) {
-            if (n % 2 == 0) {
-                cout << 2 << endl;
-            } else {
-                cout << -1 << endl;
-            }
-        } else {
-            if (i % 2 == 0) {
-                cout << "-1 ";
-            } else {
-                cout << "3 ";
+
+    vi ans;
+    for(int i = 1; i <= ct; i++) {
+        if ((ct / i) % 2== 0) {
+            int v = 1;
+            int value = 0;
+            int j = 0;
+            bool good = true;
+            while(j < ct / i) {
+                for(int k = 0; k < i; k++) {
+                    if(v[j + k] != v[j + k + i]) {
+                        good = false;
+                        break;
+                    }
+                }
+                if (!good) break;
+                j += 2 * i;
+                for(int k = 0; k < i; k++) value *= 10;
             }
         }
     }

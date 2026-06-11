@@ -1,5 +1,5 @@
 /*
-Problem link: https://codeforces.com/contest/2131/problem/A
+Problem link: https://codeforces.com/contest/2132/problem/A
 */
 
 #include <bits/stdc++.h>
@@ -17,17 +17,14 @@ const long long INF = 1e18;
 
 void solve() {
     int n; cin >> n;
-    vi a(n);
-    vi b(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    for(int i = 0; i < n; i++) cin >> b[i];
-    int up = 0;
-    int down = 0;
-    for(int i = 0; i < n; i++) {
-        up += max(a[i] - b[i] + 1, 0);
-        down += max(0, b[i] - a[i]);
+    string s; cin >> s;
+    int x; cin >> x;
+    string s1, s2; cin >> s1 >> s2;
+    for(int i = 0; i < x; i++) {
+        if (s2[i] == 'V') s = s1[i] + s;
+        else s = s + s1[i];
     }
-    cout << max(up, down) << endl;
+    cout << s << endl;
 }
 
 int main() {
