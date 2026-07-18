@@ -1,7 +1,3 @@
-/*
-Problem link: 
-*/
-
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -23,18 +19,31 @@ const long long INF = 1e18;
 
 void solve() {
     int n; cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
+    vi p(n);
+    int nidx;
+    int oidx;
+    for(int i = 0; i < n ;i++) {
+        cin >> p[i];
+        if (p[i] == 1) oidx = i + 1;
+        else if (p[i] == n) nidx = i + 1;
     }
-    sort(all(a));
-    for(int i = 0; i < n; i++) {
-        if (i % 2 == 1 && i < n - 1 && a[i] != a[i + 1]) {
-            cout << "NO" << endl;
+    string s; cin >> s;
+    if (s[0] == '1' || s[n - 1] == '1') {
+        cout << "-1" << endl;
+        return;
+    }
+    for(int i = 0; i < n ;i++) {
+        if ((p[i] == n || p[i] == 1) && s[i] == '1') {
+            cout << "-1" << endl;
             return;
         }
     }
-    cout << "YES" << endl;
+    cout << 5 << endl;
+    cout << min(oidx, nidx) << " " << max(oidx, nidx) << endl;
+    cout << oidx << " " << n << endl;
+    cout << nidx << " " << n << endl;
+    cout << 1 << " " << oidx << endl;
+    cout << 1 << " " << nidx << endl;
     
 }
 
