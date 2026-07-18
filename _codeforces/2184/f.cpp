@@ -36,7 +36,6 @@ const long long INF = 1e18;
 void solve() {
     int n; cin >> n;
     
-    vi numleaves(n, 0);
     vector<vi> adj(n, vi{});
     for(int i = 0; i < n - 1; i++) {
         int x, y; cin >> x >> y;
@@ -45,33 +44,37 @@ void solve() {
         adj[y].push_back(x);
     }
 
-    function<void(int, int)> dfs = [&] (int cur, int par) {
-        if (sz(adj[cur]) == 1) {
-            numleaves[cur] = 1;
-            return;
-        }
+    // array<bool, 3>; mod 0, 1, 2 booleans if can shake mod x amount of moves at node cur
+    function<array<bool, 3>(int,int)> dfs2 = [&] (int cur, int par) {
+        // dp it up
+        int temp = -1;
+        array<bool, 3> dp = {false, false, false};
         for(int neig : adj[cur]) {
             if (neig != par) {
-                dfs(neig, cur);
-                numleaves[cur] += numleaves[neig];
+                array<bool, 3> res = dfs2(neig, cur);
+                array<bool, 3> dpnew = {false, false, false};
+                if (temp == -1) {
+                    temp = 1;
+                    dpnew = res;
+                } else {
+                    // apply next child to see what possibile combinations there are
+                    for(int i = 0; i < 3; i++) {
+                        for(int j = 0; j < 3; j++) {
+                            if (res[i] && dp[j]) dpnew[(i + j) % 3] = true;
+                        }
+                    }
+                }
+                dp = dpnew;
             }
         }
+        dp[1] = true;       // can always shake all leaves in 1
+        return dp;
     };
 
-    dfs(0, -1);
+    array<bool, 3> wahoo = dfs2(0, -1);
+    if (wahoo[0]) cout << "YES" << endl;
+    else cout << "NO" << endl;
 
-    bool done = false;
-    // array<int, 3>; mod 0, 1, 2 booleans
-    function<array<int, 3>> dfs2 = [&] (int cur, int par) {
-        // dp it up
-        array<int, 3> ret = {0,0,0};
-        // use
-        
-        // keep
-    };
-
-    dfs2(0, -1);
-    if (!done) cout << "NO" << endl;
 
 }
 

@@ -1,6 +1,3 @@
-/*
-Problem link:
-*/
 
 #include <bits/stdc++.h>
 
@@ -20,58 +17,47 @@ const long long INF = 1e18;
 /*
 keep track of min values.
 try to use only one index to attain values
+r u trolling
 */
 
 void solve() {
-    int n, x, y; cin >> n >> x >> y;
+    ll n, x, y; cin >> n >> x >> y;
     string s; cin >> s;
-    vi p(n);
+    vll p(n);
     int min_a = 0;
     int min_b = 0;
     bool a_inc = false;
     bool b_inc = false;
-    int plus_a = 0;
-    int plus_b = 0;
     for(int i = 0; i < n; i++) {
         cin >> p[i];
         if (s[i] == '0') {
             a_inc = true;
-            if (p[i] % 2 == 0) {
-                min_a += p[i] / 2 + 1;
-                plus_b += p[i] / 2;
-            } else {
-                min_a += (p[i] + 1) / 2;
-                plus_b += (p[i] + 1) / 2 - 1;
-            }
+            min_a += p[i] / 2 + 1;
         } else {
             b_inc = true;
-            if (p[i] % 2 == 0) {
-                min_b += p[i] / 2 + 1;
-                plus_a += p[i] / 2;
-            } else {
-                min_b += (p[i] + 1) / 2;
-                plus_a += (p[i] + 1) / 2 - 1;
-            }
+            min_b += p[i] / 2 + 1;
         }
     }
-    // cout << min_a << " " << min_b << endl;
+
+    // what a troll u forgot to check this
+    if (accumulate(all(p), 0ll) > x + y) {
+        cout << "NO" << endl;
+        return;
+    }
     if (min_a > x || min_b > y) {
         cout << "NO" << endl;
         return;
     }
 
-    // check where increase for min_a
-    if (x > min_a + plus_a && !a_inc) {
-        if (y - min_b < x - (min_a + plus_a)) {
-            cout << "NO" << endl;
-            return;
-        }
+    if (!a_inc) {
+         if (x <= y - n) cout << "YES" << endl;
+         else cout << "NO" << endl;
+         return;
     }
-    if (y > min_b + plus_b && !b_inc) {
-        if (x - min_a < y - (min_b + plus_b)) {
-            cout << "NO" << endl;
-            return;
-        }
+    if (!b_inc) {
+         if (y <= x - n) cout << "YES" << endl;
+         else cout << "NO" << endl;
+         return;
     }
     cout << "YES" << endl;
 }

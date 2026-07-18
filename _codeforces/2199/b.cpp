@@ -1,0 +1,50 @@
+/*
+Problem link:
+*/
+
+#include <bits/stdc++.h>
+
+using namespace std;
+#define sz(x) int((x).size())
+#define all(x) begin(x), end(x)
+typedef long long ll;
+typedef long double ld;
+typedef pair<int, int> pii;
+typedef pair<ll, ll> pll;
+typedef vector<int> vi;
+typedef vector<ll> vll;
+#define debug(x) cout << #x << " is " << x << endl;
+const long long INF = 1e18;
+
+
+void solve() {
+    int a, b, c, d;
+    cin >> a >> b >> c >> d;
+    if (a > b) {
+        swap(a, b);
+        swap(c, d);
+    }
+
+    if (c >= b && d >= b) {
+        int ans = b - a;
+        int diff = min(c - b, d - b);
+        ans += diff;
+        ans += c - b - diff + d - b - diff;
+        cout << ans << endl;
+    } else if (b > c) {
+        cout << c - a + d - b << endl;
+    } 
+
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t = 1;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+    
+}

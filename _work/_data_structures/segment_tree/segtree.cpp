@@ -7,8 +7,8 @@
 
 using namespace std;
 
-// int L;
-// vector<int> st;
+// int L;           // length of the array your segtree is over, set in solve if using
+// vector<int> st;  // assign in solve if using
 const int L=1E5;
 int st[4 * L];
 
@@ -25,7 +25,7 @@ void build(vector<int>& arr, int at=1, int atl=0, int atr=L-1) {
 
 void update(int ind, int val, int at=1, int atl=0, int atr=L-1) {
     if (atl == atr) {
-        st[at] = arr[atl];
+        st[at] = val;
         return;
     }
     int mid = (atl + atr) / 2;
@@ -34,9 +34,9 @@ void update(int ind, int val, int at=1, int atl=0, int atr=L-1) {
     st[at] = st[2*at] + st[2*at+1];
 }
 
-int query(int s, int e, int at=1, int atl=0, int atr=L-1) {
+int query(int s, int e, int at=1, int atl=0, int atr=L-1) {         // query [s, e] (0-indexed)
     if (atr < s || e < atl) return 0;
-    if (s <= atl && atr <= e) return segtree[at];     // at range contained in [s, e] range
+    if (s <= atl && atr <= e) return st[at];
     int mid = (atl + atr) / 2;
     int left = query(s, e, 2 * at, atl, mid);
     int right = query(s, e, 2 * at + 1, mid + 1, atr);
@@ -48,5 +48,5 @@ void solve() {
     // L = n;
     // st.assign(4*L, 0);
     for(int i = 0; i < n; i++) cin >> a[i];
-    build(a);
+    // build(a);
 }

@@ -14,13 +14,15 @@ typedef vector<int> vi;
 typedef vector<ll> vll;
 const long long INF = 1e18;
 
+const ll N = 2e5;
 vector<vi> adj;
-vector<unordered_set<int>> query_ids;
+vector<set<int>> query_ids;
 vector<bool> merged;      // query_id: merged mapping
 vector<bool> ans;
 
 void dfs(int cur, int par=-1) {
-    unordered_map<int, int> cur_count;
+    // unordered_map<int, int> cur_count;
+    vi cur_count(N+1,0);
     for(int neig : adj[cur]) {
         if (neig != par) {
             dfs(neig, cur);
@@ -31,7 +33,7 @@ void dfs(int cur, int par=-1) {
         if (neig != par) {
             for (int query_id : query_ids[neig]) {
                 if (!ans[query_id]) continue;
-                if (merged[query_id] && query_ids[cur].count(query_id) > 0) {
+                if (merged[query_id] && query_ids[cur].find(query_id) != query_ids[cur].end()) {
                     ans[query_id] = false;
                 }
                 cur_count[query_id]++;
@@ -52,7 +54,7 @@ void dfs(int cur, int par=-1) {
 void solve() {
     int n; cin >> n;
     adj.assign(n + 1, vi{});
-    query_ids.assign(n + 1, unordered_set<int>{});
+    query_ids.assign(n + 1, set<int>{});
     for(int i = 0; i < n - 1; i++) {
         int x, y;
         cin >> x >> y;

@@ -1,7 +1,3 @@
-/*
-Problem link:
-*/
-
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -21,15 +17,18 @@ const long long INF = 1e18;
 void solve() {
     int n; cin >> n;
     vector<string> a(n);
-    vector<pair<string, int>> b;
+    string s = "";
     for(int i = 0; i < n; i++) {
         cin >> a[i];
-        b[i] = {a[i], i};
+        if (i == 0) s = a[0];
+        else {
+            string s1 = s + a[i];
+            string s2 = a[i] + s;
+            if (s1 < s2) s = s1;
+            else s = s2;
+        }
     }
-    sort(all(b));
-    s = b[0].first;
-    
-
+    cout << s << endl;
 }
 
 int main() {

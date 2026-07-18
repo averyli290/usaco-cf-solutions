@@ -1,36 +1,8 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2162/problem/F
 */
 
-// #include <bits/stdc++.h>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <iomanip>
-#include <string>
-#include <vector>
-#include <list>
-#include <set>
-#include <map>
-#include <queue>
-#include <stack>
-#include <algorithm>
-#include <cmath>
-#include <ctime>
-#include <cstdlib>
-#include <cstring>
-#include <cctype>
-#include <cassert>
-#include <exception>
-#include <functional>
-#include <iterator>
-#include <limits>
-#include <locale>
-#include <numeric>
-#include <random>
-#include <stdexcept>
-#include <typeinfo>
-#include <utility>
+#include <bits/stdc++.h>
 
 using namespace std;
 #define sz(x) int((x).size())
@@ -43,38 +15,102 @@ typedef vector<ll> vll;
 #define debug(x) cout << #x << " is " << x << endl;
 const long long INF = 1e18;
 
+/*
+
+0: all intervals intersect, place 0 in the intersection
+1: can make all mexes 0 or greater than 1
+wherever you place 0, all intervals containing that will also contain 1
+iterate over all adjacent indices, check intervals containing those
+this happens iff a boundary lies between the indices, it suffices to find adjacent
+where they do not have an interval boundary there. Then place 0 there, and then 1
+adjacent to the 0 such that all intervals which include the 0 must also include the 1
+
+2: uhhh just place 0 1 and ends and 2 at middle otherwise
+
+*/
+
 void solve() {
     int n, m; cin >> n >> m;
-    int m2 = m;
-    vi diff(n + 1, 0);
-    // cout << endl;
-    while(m2--) {
-        int l, r; cin >> l >> r; l--; r--;
-        // if (l == r) continue;
+
+    vi diff(n + 2, 0);
+    set<int> lefts;
+    set<int> rights;
+    for(int i = 0; i < m; i++) {
+        int l, r; cin >> l >> r;
+        lefts.insert(l);
+        rights.insert(r);
         diff[l]++;
         diff[r + 1]--;
     }
-
-    // 0 2 1 0 
-    vector<pii> a(n);
+    vi ct(n, 0);
     int cur = 0;
-    bool good = false;
-    for(int i = 0; i < n; i++) {
+    for(int i = 1; i <= n; i++) {
         cur += diff[i];
-        // cout << cur << " ";
-        a[i] = {cur, i};
-        if (cur == m) good = true;
+        ct[i - 1] = cur;
     }
+    // for(int v : ct) {
+    //     cout << v << " ";
+    // }
     // cout << endl;
-    sort(all(a));
-    if (good) reverse(all(a));
-    vi ans(n);
+    int zero_idx = -1;
+    for(int i = 0; i < n; i++) if(ct[i] == m) zero_idx = i;
+    // debug(zero_idx);
+    vi ans(n, -1);
+    // 0
+    if (zero_idx > -1) {
+        ans[zero_idx] = 0;
+        int ctr = 1;
+        for(int i = 0; i < n; i++) {
+            if (ans[i] == -1) {
+                ans[i] = ctr;
+                ctr++;
+            }
+        }
+        for(int v : ans) cout << v << " ";
+        cout << endl;
+        return;
+    }
+
+    int one_idx = -1;
+    int f = 0;
     for(int i = 0; i < n; i++) {
-        ans[a[i].second] = i;
+        if (!(rights.find(i + 1) != rights.end() && lefts.find(i + 1) != lefts.end())) {
+            one_idx = i;
+            if (rights.find(i + 1) != rights.end()) f = -1;
+            else f = 1;
+            if (i == 0) f = 1;
+            if (i == n - 1) f = -1;
+            break;
+        }
     }
-    for(int v : ans) {
-        cout << v << " ";
+    // 1
+    // debug(one_idx);
+    if (one_idx > -1) {
+        ans[one_idx] = 0;
+        ans[one_idx + f] = 1;
+        int ctr = 2;
+        for(int i = 0; i < n; i++) {
+            if (ans[i] == -1) {
+                ans[i] = ctr;
+                ctr++;
+            }
+        }
+        for(int v : ans) cout << v << " ";
+        cout << endl;
+        return;
     }
+
+    // 2
+    ans[0] = 0;
+    ans[n - 1] = 1;
+    int ctr = 2;
+    for(int i = 0; i < n; i++) {
+        if (ans[i] == -1) {
+            ans[i] = ctr;
+            ctr++;
+        }
+    }
+    for(int v : ans) cout << v << " ";
     cout << endl;
 }
 

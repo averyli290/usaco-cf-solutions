@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/problemset/problem/2229/D
 */
 
 #include <bits/stdc++.h>
@@ -17,129 +17,76 @@ typedef vector<ll> vll;
 const long long INF = 1e18;
 
 /*
-take indices, can calc off of that
+count diff between 1's and 0's
 
+cute dog: https://www.youtube.com/watch?v=pNgk76VpyIM
 */
-
-struct tiii {
-    int x;
-    int y;
-    int z;
-};
 
 
 void solve() {
     int n; cin >> n;
     vi a(n), b(n);
-    // vector<tiii> ab(n);
-    vector<pii> ab(n);
-    vector<pii> prefmin(n);
-    vector<pii> suffmin(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    for(int i = 0; i < n; i++) cin >> b[i];
-    // for(int i = 0; i < n; i++) ab[i] = tiii{a[i], b[i], i};
-    for(int i = 0; i < n; i++) ab[i] = pii{a[i], b[i]};
-    prefmin[0] = ab[0];
-    suffmin[n - 1] = ab[n - 1];
-    for(int i = 1; i < n; i++) {
-        vi temp = vi({prefmin[i - 1].first, prefmin[i - 1].second, a[i], b[i]});
-        sort(all(temp));
-        prefmin[i] = pii{temp[0], temp[1]};
+
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
     }
-    for(int i = n - 2; i >= 0; i--) {
-        vi temp = vi({suffmin[i + 1].first, suffmin[i + 1].second, a[i], b[i]});
-        sort(all(temp));
-        suffmin[i] = pii{temp[0], temp[1]};
+    for(int i = 0; i < n; i++) {
+        cin >> b[i];
     }
-    // sort(all(a));
-    // sort(all(b));
-    function<pii(pii, pii)> calc = [&](pii x, pii y) {
-        vi temp = vi({x.first, x.second, y.first, y.second});
-        sort(all(temp));
-        return pii{temp[1], temp[2]};
+
+    function<bool(int)> check = [&] (int val) {
+        vi ta(n), tb(n);
+        int diff = 0;
+        for(int i = 0; i < n; i++) {
+            ta[i] = a[i] >= val ? 1 : 0;
+            tb[i] = b[i] >= val ? 1 : 0;
+            if (ta[i]) diff++;
+            else diff--;
+            if (tb[i]) diff++;
+            else diff--;
+        }
+        // debug(diff);
+        // debug(val);
+        // for(int v : ta) cout << v << " ";
+        // cout << endl;
+        // for(int v : tb) cout << v << " ";
+        // cout << endl;
+        int pa = ta[0];
+        int pb = tb[0];
+        for(int i = 1; i <= n - 1; i++) {
+            if (pa + pb + ta[i] + tb[i] == 0) {
+                diff += 2;
+                pa = 0;
+                pb = 0;
+            } else if (pa + pb + ta[i] + tb[i] == 1) {
+                pa = 0;
+                pb = 0;
+            } else if (pa + pb + ta[i] + tb[i] == 2) {
+                pa = 1;
+                pb = 0;
+                if (ta[i] == 0 && tb[i] == 0) {
+                    pa = 0;
+                    pb = 0;
+                }
+            } else {
+                pa = 1;
+                pb = 1;
+            }
+        }
+        if (diff > 0) return true;
+        return false;
     };
-    if (n == 1) {
-        cout << min(a[0], b[0]) << endl;
-        return;
-    } 
-    if (n == 2) {
-        pii t = calc(ab[0], ab[1]);
-        cout << min(t.first, t.second) << endl;
-        return;
+    int lo = 0;
+    int hi = 2 * n;
+    while(lo < hi) {
+        int mid = (lo + hi + 1) / 2;
+        if (check(mid)) {
+            lo = mid;
+        } else {
+            hi = mid - 1;
+        }
     }
-
-    int ans = 0;
-
-    pii temp1 = calc(ab[0], suffmin[1]);
-    ans = max(ans, min(temp1.first, temp1.second));
-    temp1 = calc(ab[n - 1], prefmin[n - 2]);
-    ans = max(ans, min(temp1.first, temp1.second));
-    debug(ans);
-
-    for(int i = 1; i < n - 1; i++) {
-        debug(i);
-        cout << prefmin[i - 1].first << " " << prefmin[i - 1].second << endl;
-        cout << ab[i].first << " " << ab[i].second << endl;
-        cout << suffmin[i + 1].first << " " << suffmin[i + 1].second << endl;
-        pii first = prefmin[i - 1];
-        pii last = suffmin[i + 1];
-        pii t1 = calc(calc(first, ab[i]), last);
-        pii t2 = calc(calc(last, ab[i]), first);
-        int ans1 = min(t1.first, t1.second);
-        int ans2 = min(t2.first, t2.second);
-        ans = max(max(ans1, ans2), ans);
-    }
-    cout << ans << endl;
-
-
-    // auto cmp = [&](tiii x, tiii y) {
-    //     if (x.x < y.x) return 1;
-    //     if (x.y < y.y) return 1;
-    //     return 0;
-    // };
-    // sort(all(ab), cmp);
-
-    // for(int i = 0 ; i < n; i++) {
-    //     cout << ab[i].x << " ";
-    // }
-    // cout << endl;
-    // for(int i = 0 ; i < n; i++) {
-    //     cout << ab[i].y << " ";
-    // }
-    // cout << endl;
-
-    // function<tiii(tiii, tiii)> calc = [&](tiii x, tiii y) {
-    //     vi temp = vi({x.x, x.y, y.x , y.y });
-    //     sort(all(temp));
-    //     return tiii{temp[1], temp[2], 0};
-    // };
-    // if (n == 1) {
-    //     cout << min(a[0], b[0]) << endl;
-    //     return;
-    // }
-    // if (n == 2) {
-    //     tiii t = calc(ab[0], ab[1]);
-    //     cout << min(t.x, t.y) << endl;
-    // }
-    // int ans = 0;
-    // for(int i = 0; i < n - 2; i++) {
-    //     tiii t1 = ab[i];
-    //     tiii t2 = ab[i + 1];
-    //     tiii t3 = ab[i + 2];
-    //     vector<tiii> ts({t1, t2, t3});
-    //     sort(all(ts), [&] (tiii x, tiii y) {return x.z < y.z;});
-    //     tiii t4 = calc(calc(ts[0], ts[1]), ts[2]);
-    //     tiii t5 = calc(calc(ts[2],ts[1]), ts[0]);
-    //     int ans1 = min(t4.x, t4.y);
-    //     int ans2 = min(t5.x, t5.y);
-    //     ans = max(max(ans1, ans2), ans);
-    //     // pii t1 = calc(calc(ab[i], ab[i + 1]), ab[i + 2]);
-    //     // pii t2 = calc(calc(ab[i + 2], ab[i + 1]), ab[i]);
-    //     // int ans1 = min(t1.first, t1.second);
-    //     // int ans2 = min(t2.first, t2.second);
-    //     // ans = max(max(ans1, ans2), ans);
-    // }
-    // cout << ans << endl;
+    cout << lo << endl;
 }
 
 int main() {

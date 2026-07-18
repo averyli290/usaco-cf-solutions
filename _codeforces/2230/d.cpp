@@ -18,48 +18,46 @@ const long long INF = 1e18;
 
 /*
 
-first occurrence of 1 must be on same day, after that 2
+dp[i][0] = # of starting idxs <= i st. we end on idx i and dont watch i
+dp[i][1] = # of starting idxs <= i st. we end on idx i and watch i
 
 */
 
 
 void solve() {
     int n; cin >> n;
-    vi a(n), b(n);
-    for(int i = 0 ;i < n; i++) cin >> a[i];
+    vi a(n), b(n), prefa(n), prefb(n);
+    for(int i = 0 ;i < n; i++) {
+        cin >> a[i];
+    }
     for(int i = 0 ;i < n; i++) cin >> b[i];
-    ll ans = 0LL;
-    map<int, int> ma;
-    map<int, int> mb;
-    int right = 0;
-    bool good = true;
-    int cur = 1;
-    for(int left = 0; left < n; left++) {
-        right = max(right, left);
-        while(good) {
-            ans += right - left;
-            right++;
-            int ctr = 0;
-            if (a[right] == cur) ctr++;
-            if (b[right] == cur) ctr++;
-            ma[a[right]]++;
-            mb[b[right]]++;
-            if (ctr == 1) {
-                good = false;
+    a.insert(a.begin(), -1);
+    b.insert(b.begin(), -1);
+    vector<vll> dp(n + 1, vll(2, 0ll));
+    ll ans = 0ll;
+    dp[0][0] = 0ll;
+    dp[0][1] = 1ll;
+    for(int i = 1; i <= n; i++) {
+        if (a[i] != b[i]) {
+            dp[i][1] = 0ll; // def cant take if diff
+            if (!(a[i] == a[i - 1] + 1 || b[i] == b[i - 1] + 1)) {
+                dp[i][0] += dp[i - 1][1];
             }
-            if (ctr == 2) cur++;
+        } else {
+            if (a[i] == 1) dp[i][1]++;
+            dp[i][0] = dp[i - 1][0] + dp[i - 1][1];
+            dp[i][1] = dp[i - 1][0] + dp[i - 1][1];
         }
-        ma[a[left]]--;
-        mb[b[left]]--;
-        if (!good) {
-            if (ma[1] == 0 && mb[1] == 0 || (ma[1] == 1 && )) good = true;
-        }
+        ans += dp[i][0] + dp[i][1];
     }
-
-    while (left < right) {
-        ans += right - left;
-        left++;
+    for(int i = 0; i<= n; i++) {
+        cout << dp[i][0] << " ";
     }
+    cout << endl;
+    for(int i = 0; i<= n; i++) {
+        cout << dp[i][1] << " ";
+    }
+    cout << endl;
     cout << ans << endl;
 }
 

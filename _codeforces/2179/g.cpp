@@ -1,36 +1,8 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2179/problem/G
 */
 
-// #include <bits/stdc++.h>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <iomanip>
-#include <string>
-#include <vector>
-#include <list>
-#include <set>
-#include <map>
-#include <queue>
-#include <stack>
-#include <algorithm>
-#include <cmath>
-#include <ctime>
-#include <cstdlib>
-#include <cstring>
-#include <cctype>
-#include <cassert>
-#include <exception>
-#include <functional>
-#include <iterator>
-#include <limits>
-#include <locale>
-#include <numeric>
-#include <random>
-#include <stdexcept>
-#include <typeinfo>
-#include <utility>
+#include <bits/stdc++.h>
 
 using namespace std;
 #define sz(x) int((x).size())
@@ -43,94 +15,105 @@ typedef vector<ll> vll;
 #define debug(x) cout << #x << " is " << x << endl;
 const long long INF = 1e18;
 
+/*
+pls work PLS i hate debugging interactives
+
+hmm get two corners in n^2+O(1) queries
+then query each against those two corners
+each distance represents a diagonal line
+take the intersection of those diagonal lines
+2n^2 queries there
+
+
+1.......
+........
+........
+..y.....
+........
+2.......
+d1 = w + h1;
+d2 = w + h2;
+n - 1 = h1 + h2;
+w = ((d1 + d2) - (n - 1)) / 2;
+
+*/
+
 int q(int i, int j) {
     cout << "? " << i << " " << j << endl;
     cout.flush();
     int res; cin >> res;
+    if (res == -1) exit(0);
     return res;
 }
+
+/*
+1 2
+3 4
+
+7 6 3 
+4 2 9 
+8 5 1 
+*/
 
 void solve() {
     int n; cin >> n;
     int n2 = n*n;
 
-    // find corner
-    int ml = -1;
-    int mv = -1;
+    // find corners
+    int pengu1 = -1;
+    int mval = -1;
+    vi dists1(n2 + 1, 0), dists2(n2 + 1, 0);
     for(int i = 1; i <= n2; i++) {
         int res = q(1, i);
-        if (res > mv) {
-            mv = res;
-            ml = i;
+        dists1[i] = res;
+        if (res > mval) {
+            mval = res;
+            pengu1 = i;
         }
-    }
-
-    // n^2
-
-    // set at top left
-    int corner = ml;
-    vector<vi> strips(2*(n-1) + 1, vi{});
-    for(int i = 1; i <= n2; i++) {
-        strips[q(corner, i)].push_back(i);
     }
 
     // 2n^2
+    // im a dumbass and didn't find pengu2 :(
 
-    vector<vi> ans(2*(n-1)+1);
-    int prev_end_label = corner;
-    for (int i = 0; i < 2*n-2 + 1; i++) {
-        vi strip = strips[i];
+    vi diag;
+    for(int i = 1; i<=n2; i++) {
+        int res = q(pengu1, i);
+        dists2[i] = res;
+        if (res == n - 1) diag.push_back(i);
+    }
 
-        vi ordered_strip(sz(strip));
-        int end_label = strip[0];
-        if (sz(strip) == 1) {
-            ordered_strip = strip;
-        } else {
-
-            // get end of strip
-            int end_dist = 0;
-            for(int j = 1; j < sz(strip); j++) {
-                int res = q(strip[0], strip[j]);
-                if (res > end_dist) {
-                    end_dist = res;
-                    end_label = strip[j];
-                }
-            }
-            /*
-            1 3 5
-            2 4 6
-            7 8 9
-            */
-
-            // get strip in order
-            for(int j = 0; j < sz(strip); j++) {
-                ordered_strip[q(end_label, strip[j]) / 2] = strip[j];
-            }
-
-            // orient to prev strip
-            int res = q(prev_end_label, end_label);
-            if (res > 1) reverse(all(ordered_strip));
+    // get second pengu now on adjacent corner
+    mval = -1;
+    int pengu2 = -1;
+    for(int i = 0; i < n; i++) {
+        int res = q(diag[0], diag[i]);
+        if (res > mval) {
+            mval = res;
+            pengu2 = diag[i];
         }
+    }
 
-        ans[i] = ordered_strip;
-        prev_end_label = ordered_strip[0];
+    // debug(pengu1);
+    // debug(pengu2);
+
+    vector<vi> ans(n, vi(n, -1));
+    for(int i = 1; i<=n2; i++) {
+        int res = q(pengu2, i);
+        int w = ((dists2[i] + res) - (n - 1)) / 2;
+        int h1 = res - w;
+        // debug(w);
+        // debug(h1);
+        ans[h1][w] = i;
     }
 
     cout << "!" << endl;
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
-            int stripnum = i + j;
-            int idx;
-            if (stripnum < n) idx = j;
-            else idx = j - (stripnum - (n - 1));
-            // debug(idx);
-            // debug(stripnum);
-            cout << ans[stripnum][idx] << " ";
+            cout << ans[i][j] << " ";
         }
         cout << endl;
-        cout.flush();
     }
-
+    cout.flush();
 
 }
 

@@ -1,6 +1,3 @@
-/*
-Problem link: https://codeforces.com/contest/2205/problem/C
-*/
 
 #include <bits/stdc++.h>
 
@@ -23,69 +20,80 @@ void solve() {
     int mval = 0;
     for(int i= 0; i < n; i++) {
         cin >> l[i];
-        a[i].resize(l[i], 0);
+        vi temp(l[i]);
+        set<int> inserted;
         for(int j = 0; j < l[i]; j++) {
-            cin >> a[i][j];
+            cin >> temp[j];
         }
-        mval = max(mval, l[i]);
-    }
-    for(vi b : a) {
-        for (int v : b) {
-            cout << v << " ";
+        for(int j = l[i] - 1; j >= 0; j--) {
+            if (inserted.find(temp[j]) == inserted.end()) {
+                a[i].push_back(temp[j]);
+                inserted.insert(temp[j]);
+            }
         }
-        cout << endl;
+        // reverse(all(a[i]));
+        mval = max(mval, sz(a[i]));
     }
-    cout << endl;
+    // for(vi b : a) {
+    //     for (int v : b) {
+    //         cout << v << " ";
+    //     }
+    //     cout << endl;
+    // }
+    // cout << endl;
     for(int i = 0; i < n; i++) {
-        reverse(all(a[i]));
+        // reverse(all(a[i]));
         a[i].resize(mval, -1);
     }
 
     sort(all(a));
-    reverse(all(a));
-    for(int i = 0; i < n; i++) {
-        reverse(all(a[i]));
-    }
 
-    for(vi b : a) {
-        for (int v : b) {
-            cout << v << " ";
-        }
-        cout << endl;
-    }
+    // for(vi b : a) {
+    //     for (int v : b) {
+    //         cout << v << " ";
+    //     }
+    //     cout << endl;
+    // }
 
     vi ans;
 
-    for(int i = 0; i < n; i++) {
-        for(int u : a[i]) {
-            int prev = u;
-            if (prev > -1) {
-                if (sz(ans) == 0) {
-                    ans.push_back(prev);
-                } else {
-                    bool swapped = false;
-                    int temp;
-                    for(int j = 0; j < sz(ans); j++) {
-                        if (ans[j] == u) {
-                            ans[j] = prev;
-                            swapped = true;
-                            break;
-                        }
-                        temp = ans[j];
-                        ans[j] = prev;
-                        prev = temp;
-                    }
-                    if (!swapped) ans.push_back(prev);
+    vi ansidx(1e6 + 1, -1);
 
-                }
+    int ctr = 0;
+    while (sz(a) > 0) {
+        int idx = 0;
+        while (idx < sz(a[0])) {
+            if (a[0][idx] == -1) break;
+            if (ansidx[a[0][idx]] == -1) {
+                ansidx[a[0][idx]] = ctr;
+                ctr++;
             }
+            idx++;
         }
+        vector<vi> b;
+        for(int i = 1; i < sz(a); i++) {
+            vi temp;
+            for(int j = 0; j < sz(a[i]); j++) {
+                if (a[i][j] == -1) break;
+                if (ansidx[a[i][j]] == -1) temp.push_back(a[i][j]);
+            }
+            mval = max(mval, sz(temp));
+            b.push_back(temp);
+        }
+        for(int i = 0; i < sz(b); i++) {
+            b[i].resize(mval, -1);
+        }
+        sort(all(b));
+        a = b;
     }
-
-    for(int v : ans) {
-        cout << v << " ";
+    vector<pii> temp;
+    for(int i = 0;i < sz(ansidx); i++) {
+        if (ansidx[i] > -1) temp.push_back({ansidx[i], i});
     }
+    sort(all(temp));
+    for(auto [idx, val] : temp) cout << val << " ";
     cout << endl;
+
 }
 
 int main() {

@@ -16,6 +16,9 @@ typedef vector<ll> vll;
 #define debug(x) cout << #x << " is " << x << endl;
 const long long INF = 1e18;
 
+/*
+https://www.youtube.com/watch?v=9qN9EF-6IcI
+*/
 
 void solve() {
 

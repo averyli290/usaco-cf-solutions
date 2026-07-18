@@ -24,7 +24,7 @@ void solve() {
         cin >> a[i];
     }
     sort(all(a));
-    cout << max(*min_element(all(a)), a[1] - a[0]) << endl;
+    cout << max(a[0], a[1] - a[0]) << endl;
 }
 
 int main() {

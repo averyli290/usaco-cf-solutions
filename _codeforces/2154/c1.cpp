@@ -17,63 +17,72 @@ typedef vector<ll> vll;
 #define debug_vector(arr , n) for(int i=0 ; i<n ; i++) cout<<#arr<<"["<<i<<"] is "<<arr[i]<<endl;
 const long long INF = 1e18;
 
-/*
-
-min cost to get to each prime below 2 * 10^5
-
-*/
-
-vi primes;
 
 void solve() {
     int n; cin >> n;
     vi a(n), b(n);
+    int evenct = 0;
+    map<int, int> mp;
     for(int i = 0 ; i < n; i++) {
         cin >> a[i];
     }
     for(int i = 0 ; i < n; i++) {
         cin >> b[i];
     }
-    sort(all(a));
-
-    map<int, int> mincost;
-    for(int p : primes) mincost[p] = 2E5;
+    bool done = false;
     for(int i = 0; i < n; i++) {
-        for (int p : primes) {
-            mincost[p] = min(mincost[p], a[i]);
+        if (done) break;
+        int temp = a[i];
+        for(int d = 2; d * d <= temp; d++) {
+            if (temp % d == 0) {
+                if (mp[d] > 0) {
+                    done = true;
+                }
+                mp[d]++;
+                while(temp % d == 0) temp /= d;
+            }
+        }
+        if (temp > 1) {
+            if (mp[temp] > 0) {
+                done = true;
+            }
+            mp[temp]++;
         }
     }
+    if (done) {
+        cout << 0 << endl;
+        return;
+    }
+    for(int i = 0; i < n; i++) {
+        if (done) break;
+        int temp = a[i] + 1;
+        for(int d = 2; d * d <= temp; d++) {
+            if (temp % d == 0) {
+                if (mp[d] > 0) {
+                    done = true;
+                }
+                while(temp % d == 0) temp /= d;
+            }
+        }
+        if (temp > 1) {
+            if (mp[temp] > 0) {
+                done = true;
+            }
+        }
+    }
+    if (done) cout << 1 << endl;
+    else cout << 2 << endl;
+
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int n=2E5;
-    vector<bool> is_prime(n+1, true);
-    is_prime[0] = is_prime[1] = false;
-    for (int i = 2; i <= n; i++) {
-        if (is_prime[i] && (long long)i * i <= n) {
-            for (int j = i * i; j <= n; j += i)
-                is_prime[j] = false;
-        }
-    }
-    for(int i = 2; i <= n; i++) { if (is_prime[i]) primes.push_back(i); }
-
     int t = 1;
     cin >> t;
     while (t--) {
         solve();
     }
-    int k = sz(primes);
-    int m = 0;
-    for(int i = 0; i < k - 1; i++) {
-        m = max(m, primes[i + 1] - primes[i]);
-    }
-    cout << k << endl;
-    cout << m << endl;
-    cout << primes[k - 1] << endl;
-    cout << primes[k - 2] << endl;
-    cout << primes[k - 3] << endl;
-    
+
 }
