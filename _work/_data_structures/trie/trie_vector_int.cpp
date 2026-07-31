@@ -1,11 +1,19 @@
 
 const int K = 2;
-const char zero_char = '0';      // char representing index 0 out of [0, K)
 
-void insert(vector<TrieNode>& trie, string& s) {
+struct TrieNode {
+    int next[K];
+    bool has = false;
+    
+    TrieNode() {
+        fill(begin(next), end(next), -1);
+    }
+};
+
+void insert(vector<TrieNode>& trie, int& s) {
     int curnode = 0;
-    for(char ch : s) {
-        int c = ch - zero_char;
+    for(int i = 31; i >= 0; i--) {
+        int c = (s >> i) & 1;
         if (trie[curnode].next[c] == -1) {
             trie[curnode].next[c] = sz(trie);
             trie.emplace_back();
@@ -15,20 +23,20 @@ void insert(vector<TrieNode>& trie, string& s) {
     trie[curnode].has = true;
 }
 
-void erase(vector<TrieNode>& trie, string& s) {
+void erase(vector<TrieNode>& trie, int& s) {
     int curnode = 0;
-    for(char ch : s) {
-        int c = ch - zero_char;
+    for(int i = 31; i >= 0; i--) {
+        int c = (s >> i) & 1;
         if (trie[curnode].next[c] == -1) return;
         curnode = trie[curnode].next[c];
     }
     trie[curnode].has = false;
 }
 
-bool find(vector<TrieNode>& trie, string& s) {
+bool find(vector<TrieNode>& trie, int& s) {
     int curnode = 0;
-    for(char ch : s) {
-        int c = ch - zero_char;
+    for(int i = 31; i >= 0; i--) {
+        int c = (s >> i) & 1;
         if (trie[curnode].next[c] == -1) return;
         curnode = trie[curnode].next[c];
     }
@@ -36,8 +44,7 @@ bool find(vector<TrieNode>& trie, string& s) {
 }
 
 /*
-const int K = 2;
-const char zero_char = '0';      // char representing index 0 out of [0, K)
+
 struct TrieNode {
     int next[K];
     int ct = 0;
@@ -47,36 +54,36 @@ struct TrieNode {
     }
 };
 
-void insert(vector<TrieNode>& trie, string& s) {
+void insert(vector<TrieNode>& trie, int& s) {
     int curnode = 0;
-    for(char ch : s) {
-        int c = ch - zero_char;
+    for(int i = 31; i >= 0; i--) {
+        int c = (s >> i) & 1;
         if (trie[curnode].next[c] == -1) {
             trie[curnode].next[c] = sz(trie);
             trie.emplace_back();
         }
         curnode = trie[curnode].next[c];
-        trie[curnode].ct++;
+        curnode.ct++;
     }
+    trie[curnode].has = true;
 }
 
-void erase(vector<TrieNode>& trie, string& s) {
+void erase(vector<TrieNode>& trie, int& s) {
     int curnode = 0;
-    vector<int> to_dec;     // only dec on successful erase
-    for(char ch : s) {
-        int c = ch - zero_char;
+    for(int i = 31; i >= 0; i--) {
+        int c = (s >> i) & 1;
         if (trie[curnode].next[c] == -1) return;
         curnode = trie[curnode].next[c];
-        to_dec.push_back(curnode);
+        curnode.ct--;
     }
-    for(int i : to_dec) trie[i].ct--;
+    trie[curnode].has = false;
 }
 
-bool find(vector<TrieNode>& trie, string& s) {
+bool find(vector<TrieNode>& trie, int& s) {
     int curnode = 0;
-    for(char ch : s) {
-        int c = ch - zero_char;
-        if (trie[curnode].next[c] == -1) return false;
+    for(int i = 31; i >= 0; i--) {
+        int c = (s >> i) & 1;
+        if (trie[curnode].next[c] == -1) return;
         curnode = trie[curnode].next[c];
     }
     return trie[curnode].ct > 0;
