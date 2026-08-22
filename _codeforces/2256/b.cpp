@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2256/problem/A
 */
 
 #include <bits/stdc++.h>
@@ -16,12 +16,40 @@ typedef vector<ll> vll;
 #define debug(x) cout << #x << " is " << x << endl;
 const long long INF = 1e18;
 
+const ll M = 998244353;
+
 /*
-https://www.youtube.com/watch?v=zWoSvb1_vXQ
+
+1??1
+
+1?0???????
+
+1?????
+110011
+100110
+
+0011
+1100
+0110
+1001
+
+10011110101011
+01011101010111
+0010001
+1111111
 */
 
 void solve() {
-
+    int n; cin >> n;
+    string s; cin >> s;
+    bool b = true;
+    for(int i = 0; i < n; i++) {
+        if (s[i] != '?') b = false;
+    }
+    if (b) {
+        cout << 4 << endl;
+        return;
+    }
 }
 
 int main() {

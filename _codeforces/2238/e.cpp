@@ -17,7 +17,9 @@ typedef vector<ll> vll;
 const long long INF = 1e18;
 
 /*
-https://www.youtube.com/watch?v=zWoSvb1_vXQ
+bash?
+
+back to front
 */
 
 void solve() {

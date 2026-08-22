@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/problemset/problem/1316/A
 */
 
 #include <bits/stdc++.h>
@@ -17,11 +17,16 @@ typedef vector<ll> vll;
 const long long INF = 1e18;
 
 /*
-https://www.youtube.com/watch?v=zWoSvb1_vXQ
 */
 
 void solve() {
-
+    int n, m; cin >> n >> m;
+    int s;
+    for(int i = 0; i < n; i++) {
+        int x; cin >> x;
+        s += x;
+    }
+    cout << min(s, m) << endl;
 }
 
 int main() {

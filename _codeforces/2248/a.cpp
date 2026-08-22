@@ -17,11 +17,33 @@ typedef vector<ll> vll;
 const long long INF = 1e18;
 
 /*
-https://www.youtube.com/watch?v=zWoSvb1_vXQ
 */
 
 void solve() {
-
+    string s; cin >> s;
+    int n = sz(s);
+    bool b = false;
+    string s1 = "";
+    for(int i = 0; i < n; i++) {
+        if (b) {
+            s1 += s[i];
+        } else if (s[i] == '0') {
+            b = true;
+        } else {
+            s1 += s[i];
+        }
+    }
+    b = false;
+    string s2 = "";
+    for(int i = 0; i < sz(s1); i++) {
+        if (b) s2 += s1[i];
+        else if (s1[i] == '1') {
+            b = true;
+        } else {
+            s2 += s1[i];
+        }
+    }
+    cout << s2 << endl;
 }
 
 int main() {

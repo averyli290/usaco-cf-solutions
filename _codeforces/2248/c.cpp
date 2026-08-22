@@ -1,7 +1,3 @@
-/*
-Problem link:
-*/
-
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -17,11 +13,25 @@ typedef vector<ll> vll;
 const long long INF = 1e18;
 
 /*
-https://www.youtube.com/watch?v=zWoSvb1_vXQ
+1,4,9,16
 */
 
 void solve() {
-
+    int n; cin >> n;
+    vi b(2*n);
+    vector<vll> a(n, vll(2,-1));
+    for(int i = 0; i < 2*n; i++) {
+        int x; cin >> x;
+        x--;
+        b[i] = x;
+        if (a[x][0] == -1) a[x][0] = i;
+        else a[x][1] = i;
+    }
+    vll dp(2*n + 1, 0ll);
+    for(ll i = 0; i < 2*n; i++) {
+        dp[i + 1] = max(dp[i] + 1, dp[a[b[i]][0]] + (i - a[b[i]][0] + 1) * (i - a[b[i]][0] + 1));
+    }
+    cout << dp[2 * n] << endl;
 }
 
 int main() {

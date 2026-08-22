@@ -21,6 +21,15 @@ https://www.youtube.com/watch?v=zWoSvb1_vXQ
 */
 
 void solve() {
+    int n; cin >> n;
+    int v = n + 1;
+    for(int i = 2; i * i <= v; i++) {
+        if (v % i == 0) {
+            cout << "NO" << endl;
+            return;
+        }
+    }
+    cout << "YES" << endl;
 
 }
 

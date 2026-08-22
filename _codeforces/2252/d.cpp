@@ -18,6 +18,11 @@ const long long INF = 1e18;
 
 /*
 https://www.youtube.com/watch?v=zWoSvb1_vXQ
+
+alternating parity runs
+first and last elt cant change
+
+
 */
 
 void solve() {

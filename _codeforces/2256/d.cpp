@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2256/problem/A
 */
 
 #include <bits/stdc++.h>
@@ -16,12 +16,14 @@ typedef vector<ll> vll;
 #define debug(x) cout << #x << " is " << x << endl;
 const long long INF = 1e18;
 
+const ll M = 998244353;
+
 /*
-https://www.youtube.com/watch?v=zWoSvb1_vXQ
+dp[i][0] = # of non palindromic substrings ending at and including i starting with 0
+
 */
 
 void solve() {
-
 }
 
 int main() {

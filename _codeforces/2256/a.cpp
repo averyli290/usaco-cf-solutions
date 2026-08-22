@@ -1,5 +1,5 @@
 /*
-Problem link:
+Problem link: https://codeforces.com/contest/2256/problem/A
 */
 
 #include <bits/stdc++.h>
@@ -17,11 +17,13 @@ typedef vector<ll> vll;
 const long long INF = 1e18;
 
 /*
-https://www.youtube.com/watch?v=zWoSvb1_vXQ
 */
 
 void solve() {
-
+    vi a(3);
+    cin >> a[0] >> a[1] >> a[2];
+    sort(all(a));
+    cout << min(a[2] - a[0], a[1]) << endl;
 }
 
 int main() {
