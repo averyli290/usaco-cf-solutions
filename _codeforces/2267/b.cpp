@@ -1,0 +1,61 @@
+/*
+Problem link:
+*/
+
+#include <bits/stdc++.h>
+
+using namespace std;
+#define sz(x) int((x).size())
+#define all(x) begin(x), end(x)
+typedef long long ll;
+typedef long double ld;
+typedef pair<int, int> pii;
+typedef pair<ll, ll> pll;
+typedef vector<int> vi;
+typedef vector<ll> vll;
+#define debug(x) cout << #x << " is " << x << endl;
+const long long INF = 1e18;
+
+/*
+https://www.youtube.com/watch?v=zWoSvb1_vXQ
+*/
+
+void solve() {
+    int n; cin >> n;
+    vi a(n);
+    map<int, int> mp;
+    set<int> s;
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
+        s.insert(a[i]);
+        mp[a[i]]++;
+    }
+    vi b(all(s));
+    sort(all(b));
+    reverse(all(b));
+    int idx = 0;
+    while(n > 0) {
+        int cur = b[idx];
+        if (mp[cur] > 0) {
+            cout << cur << " ";
+            mp[cur]--;
+            n--;
+        }
+        idx++; 
+        idx %= sz(b);
+    }
+    cout << endl;
+
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t = 1;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+    
+}
